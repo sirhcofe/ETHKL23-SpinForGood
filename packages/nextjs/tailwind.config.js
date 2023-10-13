@@ -6,6 +6,8 @@ module.exports = {
   // DaisyUI theme colors
   daisyui: {
     themes: [
+      "pastel",
+      "forest",
       {
         scaffoldEth: {
           primary: "#93BBFB",
@@ -95,6 +97,27 @@ module.exports = {
           ".tooltip": {
             "--tooltip-tail": "6px",
           },
+        },
+      },
+      {
+        mytheme: {
+          primary: "#ea9aac",
+
+          secondary: "#dce263",
+
+          accent: "#078399",
+
+          neutral: "#161b27",
+
+          "base-100": "#f5f4f5",
+
+          info: "#8dc5e7",
+
+          success: "#78e8dd",
+
+          warning: "#ac7e0c",
+
+          error: "#f65a89",
         },
       },
     ],
