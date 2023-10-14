@@ -13,79 +13,77 @@ import "hardhat/console.sol";
  * @author BuidlGuidl
  */
 contract YourContract {
-	// State Variables
-	address public immutable owner;
-	string public greeting = "Building Unstoppable Apps!!!";
-	bool public premium = false;
-	uint256 public totalCounter = 0;
-	mapping(address => uint) public userGreetingCounter;
+    uint256 public prizePool;
+    uint256 public donationPool;
+    address public lastWinner;
+    address public immutable owner;
 
-	// Events: a way to emit log statements from smart contract that can be listened to by external parties
-	event GreetingChange(
-		address indexed greetingSetter,
-		string newGreeting,
-		bool premium,
-		uint256 value
-	);
+    struct Donation {
+        address user;
+        uint256 amount;
+        uint256 timestamp;
+    }
 
-	// Constructor: Called once on contract deployment
-	// Check packages/hardhat/deploy/00_deploy_your_contract.ts
-	constructor(address _owner) {
-		owner = _owner;
+    Donation[] public donations;
+    address[] public registeredNPOs;
+
+    constructor(address _owner) {
+        owner = _owner;
+        prizePool = 0;
+        donationPool = 0;
+    }
+
+    function donate() external payable {
+		uint donationPoolInc = (msg.value * 75) / 100;
+        donationPool += donationPoolInc;
+        prizePool += msg.value - donationPoolInc;
+        donations.push(Donation(msg.sender, msg.value, block.timestamp));
+    }
+
+    function registerNPO(address _npoAddr) external {
+        registeredNPOs.push(_npoAddr);
+    }
+
+    function endOfDuration() external payable {
+        require(registeredNPOs.length > 0, "No registered NPOs.");
+
+        uint256 donationSplit = donationPool / 2;
+        uint256 donationPerUser = donationSplit / registeredNPOs.length;
+        uint256 donationRoulette = donationPool - donationSplit;
+        // uint256 winnerIndex = getRandomWinnerIndex(donations.length);
+        uint256 NPOwinnerIndex = getRandomWinnerIndex(registeredNPOs.length);
+        lastWinner = registeredNPOs[NPOwinnerIndex];
+
+        prizePool -= (prizePool * 75) / 100;
+        donationPool = 0;
+
+        // address winningNPO = registeredNPOs[random() % registeredNPOs.length];
+        address winningNPO = registeredNPOs[NPOwinnerIndex];
+
+		// transfer to winningNPO
+		payable(winningNPO).transfer(donationRoulette);
+
+		// transfer to all NPOs the average
+		for (uint256 i = 0; i < registeredNPOs.length; i++) {
+            payable(registeredNPOs[i]).transfer(donationPerUser);
+        }
+    }
+
+    function getContractBalance() external view returns (uint256) {
+        return address(this).balance;
+    }
+
+	function getRandomWinnerIndex(uint numCandidates) internal view returns(uint) {
+		return
+            uint(
+                keccak256(
+                    abi.encodePacked(
+                        block.timestamp,
+                        block.difficulty,
+                        msg.sender
+                    )
+                )
+            ) % numCandidates;
 	}
-
-	error NotOwner(address);
-
-	// Modifier: used to define a set of rules that must be met before or after a function is executed
-	// Check the withdraw() function
-	modifier isOwner() {
-		// msg.sender: predefined variable that represents address of the account that called the current function
-		require(msg.sender == owner, "Not the Owner");
-		// if (msg.sender != owner)
-			// revert NotOwner(msg.sender);
-		_;
-	}
-
-	/**
-	 * Function that allows anyone to change the state variable "greeting" of the contract and increase the counters
-	 *
-	 * @param _newGreeting (string memory) - new greeting to save on the contract
-	 */
-	function setGreeting(string memory _newGreeting) public payable {
-		// Print data to the hardhat chain console. Remove when deploying to a live network.
-		console.log(
-			"Setting new greeting '%s' from %s",
-			_newGreeting,
-			msg.sender
-		);
-
-		// Change state variables
-		greeting = _newGreeting;
-		totalCounter += 1;
-		userGreetingCounter[msg.sender] += 1;
-
-		// msg.value: built-in global variable that represents the amount of ether sent with the transaction
-		if (msg.value > 0) {
-			premium = true;
-		} else {
-			premium = false;
-		}
-
-		// emit: keyword used to trigger an event
-		emit GreetingChange(msg.sender, _newGreeting, msg.value > 0, 0);
-	}
-
-	/**
-	 * Function that allows the owner to withdraw all the Ether in the contract
-	 * The function can only be called by the owner of the contract as defined by the isOwner modifier
-	 */
-	function withdraw() public isOwner {
-		(bool success, ) = owner.call{ value: address(this).balance }("");
-		require(success, "Failed to send Ether");
-	}
-
-	/**
-	 * Function that allows the contract to receive ETH
-	 */
-	receive() external payable {}
 }
+

@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          address: "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
           abi: [
             {
               inputs: [
@@ -19,55 +19,82 @@ const contracts = {
               type: "constructor",
             },
             {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "",
-                  type: "address",
-                },
-              ],
-              name: "NotOwner",
-              type: "error",
-            },
-            {
-              anonymous: false,
-              inputs: [
-                {
-                  indexed: true,
-                  internalType: "address",
-                  name: "greetingSetter",
-                  type: "address",
-                },
-                {
-                  indexed: false,
-                  internalType: "string",
-                  name: "newGreeting",
-                  type: "string",
-                },
-                {
-                  indexed: false,
-                  internalType: "bool",
-                  name: "premium",
-                  type: "bool",
-                },
-                {
-                  indexed: false,
-                  internalType: "uint256",
-                  name: "value",
-                  type: "uint256",
-                },
-              ],
-              name: "GreetingChange",
-              type: "event",
+              inputs: [],
+              name: "donate",
+              outputs: [],
+              stateMutability: "payable",
+              type: "function",
             },
             {
               inputs: [],
-              name: "greeting",
+              name: "donationPool",
               outputs: [
                 {
-                  internalType: "string",
+                  internalType: "uint256",
                   name: "",
-                  type: "string",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              name: "donations",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "user",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "amount",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "timestamp",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "endOfDuration",
+              outputs: [],
+              stateMutability: "payable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "getContractBalance",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "lastWinner",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
                 },
               ],
               stateMutability: "view",
@@ -88,33 +115,7 @@ const contracts = {
             },
             {
               inputs: [],
-              name: "premium",
-              outputs: [
-                {
-                  internalType: "bool",
-                  name: "",
-                  type: "bool",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "string",
-                  name: "_newGreeting",
-                  type: "string",
-                },
-              ],
-              name: "setGreeting",
-              outputs: [],
-              stateMutability: "payable",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "totalCounter",
+              name: "prizePool",
               outputs: [
                 {
                   internalType: "uint256",
@@ -129,31 +130,33 @@ const contracts = {
               inputs: [
                 {
                   internalType: "address",
-                  name: "",
+                  name: "_npoAddr",
                   type: "address",
                 },
               ],
-              name: "userGreetingCounter",
-              outputs: [
+              name: "registerNPO",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
                 {
                   internalType: "uint256",
                   name: "",
                   type: "uint256",
                 },
               ],
+              name: "registeredNPOs",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
               stateMutability: "view",
               type: "function",
-            },
-            {
-              inputs: [],
-              name: "withdraw",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              stateMutability: "payable",
-              type: "receive",
             },
           ],
         },
