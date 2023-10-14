@@ -12,7 +12,7 @@ import "hardhat/console.sol";
  * It also allows the owner to withdraw the Ether in the contract
  * @author BuidlGuidl
  */
-contract YourContract {
+contract SFGContract {
 	uint256 public prizePool;
 	uint256 public donationPool;
 	address public lastNPOWinner;
@@ -25,8 +25,13 @@ contract YourContract {
 		uint256 timestamp;
 	}
 
+	struct NPO {
+		address payable addr;
+		string name;
+	}
+
 	Donation[] public donations;
-	address payable[] public registeredNPOs;
+	NPO[] public registeredNPOs;
 
 	constructor(address _owner) {
 		owner = _owner;
@@ -43,11 +48,17 @@ contract YourContract {
 		donations.push(Donation(msg.sender, msg.value, block.timestamp));
 	}
 
-	function registerNPO(address payable _npoAddr) external {
+	function registerNPO(
+		address payable _npoAddr,
+		string memory name
+	) external {
 		for (uint256 i = 0; i < registeredNPOs.length; i++) {
-			require(registeredNPOs[i] != _npoAddr, "NPO already registered.");
+			require(
+				registeredNPOs[i].addr != _npoAddr,
+				"NPO already registered."
+			);
 		}
-		registeredNPOs.push(_npoAddr);
+		registeredNPOs.push(NPO(_npoAddr, name));
 	}
 
 	function endOfDuration() external {
@@ -55,7 +66,7 @@ contract YourContract {
 
 		// get random NPO winner
 		uint256 NPOwinnerIndex = getRandomWinnerIndex(registeredNPOs.length);
-		lastNPOWinner = registeredNPOs[NPOwinnerIndex];
+		lastNPOWinner = registeredNPOs[NPOwinnerIndex].addr;
 
 		// transfer to winningNPO
 		uint256 donationSplit = donationPool / 2;
@@ -66,7 +77,7 @@ contract YourContract {
 		// transfer to all NPOs the average
 		uint256 donationPerUser = donationSplit / registeredNPOs.length;
 		for (uint256 i = 0; i < registeredNPOs.length; i++) {
-			registeredNPOs[i].transfer(donationPerUser);
+			registeredNPOs[i].addr.transfer(donationPerUser);
 		}
 
 		// get random User winner
@@ -91,7 +102,7 @@ contract YourContract {
 		return donations;
 	}
 
-	function getListOfNPOs() external view returns (address payable[] memory) {
+	function getListOfNPOs() external view returns (NPO[] memory) {
 		return registeredNPOs;
 	}
 
