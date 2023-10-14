@@ -47,7 +47,6 @@ export default function Home() {
           option: formattedAddress(donor.user),
         };
       });
-      console.log(newDonors);
       newDonors.sort((a, b) => Number(b.amount - a.amount));
       setDonors(newDonors);
     }
