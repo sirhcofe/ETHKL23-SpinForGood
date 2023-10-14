@@ -13,77 +13,76 @@ import "hardhat/console.sol";
  * @author BuidlGuidl
  */
 contract YourContract {
-    uint256 public prizePool;
-    uint256 public donationPool;
-    address public lastWinner;
-    address public immutable owner;
+	uint256 public prizePool;
+	uint256 public donationPool;
+	address public lastWinner;
+	address public immutable owner;
 
-    struct Donation {
-        address user;
-        uint256 amount;
-        uint256 timestamp;
-    }
+	struct Donation {
+		address user;
+		uint256 amount;
+		uint256 timestamp;
+	}
 
-    Donation[] public donations;
-    address[] public registeredNPOs;
+	Donation[] public donations;
+	address payable[] public registeredNPOs;
 
-    constructor(address _owner) {
-        owner = _owner;
-        prizePool = 0;
-        donationPool = 0;
-    }
+	constructor(address _owner) {
+		owner = _owner;
+		prizePool = 0;
+		donationPool = 0;
+		lastWinner = owner;
+	}
 
-    function donate() external payable {
+	function donate() external payable {
 		uint donationPoolInc = (msg.value * 75) / 100;
-        donationPool += donationPoolInc;
-        prizePool += msg.value - donationPoolInc;
-        donations.push(Donation(msg.sender, msg.value, block.timestamp));
-    }
+		donationPool += donationPoolInc;
+		prizePool += msg.value - donationPoolInc;
+		donations.push(Donation(msg.sender, msg.value, block.timestamp));
+	}
 
-    function registerNPO(address _npoAddr) external {
-        registeredNPOs.push(_npoAddr);
-    }
+	function registerNPO(address payable _npoAddr) external {
+		registeredNPOs.push(_npoAddr);
+	}
 
-    function endOfDuration() external payable {
-        require(registeredNPOs.length > 0, "No registered NPOs.");
+	function endOfDuration() external payable {
+		require(registeredNPOs.length > 0, "No registered NPOs.");
 
-        uint256 donationSplit = donationPool / 2;
-        uint256 donationPerUser = donationSplit / registeredNPOs.length;
-        uint256 donationRoulette = donationPool - donationSplit;
-        // uint256 winnerIndex = getRandomWinnerIndex(donations.length);
-        uint256 NPOwinnerIndex = getRandomWinnerIndex(registeredNPOs.length);
-        lastWinner = registeredNPOs[NPOwinnerIndex];
-
-        prizePool -= (prizePool * 75) / 100;
-        donationPool = 0;
-
-        // address winningNPO = registeredNPOs[random() % registeredNPOs.length];
-        address winningNPO = registeredNPOs[NPOwinnerIndex];
+		uint256 NPOwinnerIndex = getRandomWinnerIndex(registeredNPOs.length);
+		lastWinner = registeredNPOs[NPOwinnerIndex];
 
 		// transfer to winningNPO
-		payable(winningNPO).transfer(donationRoulette);
+		uint256 donationSplit = donationPool / 2;
+		uint256 donationRoulette = donationPool - donationSplit;
+		(bool sent, ) = lastWinner.call{ value: donationRoulette }("");
+		require(sent, "Transfer failed.");
 
 		// transfer to all NPOs the average
+		uint256 donationPerUser = donationSplit / registeredNPOs.length;
 		for (uint256 i = 0; i < registeredNPOs.length; i++) {
-            payable(registeredNPOs[i]).transfer(donationPerUser);
-        }
-    }
+			registeredNPOs[i].transfer(donationPerUser);
+		}
 
-    function getContractBalance() external view returns (uint256) {
-        return address(this).balance;
-    }
+		prizePool -= (prizePool * 75) / 100;
+		donationPool = 0;
+	}
 
-	function getRandomWinnerIndex(uint numCandidates) internal view returns(uint) {
+	function getContractBalance() external view returns (uint256) {
+		return address(this).balance;
+	}
+
+	function getRandomWinnerIndex(
+		uint numCandidates
+	) internal view returns (uint) {
 		return
-            uint(
-                keccak256(
-                    abi.encodePacked(
-                        block.timestamp,
-                        block.difficulty,
-                        msg.sender
-                    )
-                )
-            ) % numCandidates;
+			uint(
+				keccak256(
+					abi.encodePacked(
+						block.timestamp,
+						block.difficulty,
+						msg.sender
+					)
+				)
+			) % numCandidates;
 	}
 }
-

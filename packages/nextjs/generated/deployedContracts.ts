@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
+          address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
           abi: [
             {
               inputs: [
@@ -129,7 +129,7 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "address",
+                  internalType: "address payable",
                   name: "_npoAddr",
                   type: "address",
                 },
@@ -150,7 +150,7 @@ const contracts = {
               name: "registeredNPOs",
               outputs: [
                 {
-                  internalType: "address",
+                  internalType: "address payable",
                   name: "",
                   type: "address",
                 },
