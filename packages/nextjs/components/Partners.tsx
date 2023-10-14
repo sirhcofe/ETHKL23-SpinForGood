@@ -25,17 +25,15 @@ const PartnerCard = ({ id }: { id: [string, string, string] }) => {
       className="relative h-screen flex flex-col md:flex-row justify-center items-center z-10"
       style={{ scrollSnapType: "y mandatory", scrollSnapAlign: "center" }}
     >
-      <div className="relative w-[375px] h-[500px] m-5" ref={ref}>
+      <div className="relative w-[375px] h-[500px] m-5 rounded-xl overflow-clip" ref={ref}>
         <Image className="w-full h-full object-cover" src={id[0]} alt="NPO" width={768} height={1024} />
       </div>
       <motion.div
         className="w-[90%] md:w-[400px] mx-5 space-y-3 p-5 rounded-xl bg-white bg-opacity-90 md:bg-transparent"
         style={{ y }}
       >
-        <h2 className="font-extrabold text-4xl text-transparent bg-clip-text bg-gradient-to-br from-orange-500 to-red-600">
-          {id[1]}
-        </h2>
-        <h3 className="text-[#bb892d] md:font-semibold text-sm md:text-lg tracking-normal md:tracking-wide leading-tight md:leading-relaxed">
+        <h2 className="font-bold text-4xl -ml-6">{id[1]}</h2>
+        <h3 className=" md:font-semibold text-sm md:text-lg tracking-normal md:tracking-wide leading-tight md:leading-relaxed">
           {id[2]}
         </h3>
       </motion.div>
@@ -59,7 +57,7 @@ const Partners = () => {
       {partners.map((partnerData, i) => {
         return <PartnerCard key={i} id={partnerData} />;
       })}
-      <motion.div className="fixed left-0 right-0 h-5 bg-accent bottom-20 z-20" style={{ scaleX }} />
+      <motion.div className="fixed left-0 right-0 h-3 bg-secondary bottom-20 z-20" style={{ scaleX }} />
     </div>
   );
 };

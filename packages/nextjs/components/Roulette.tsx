@@ -128,6 +128,7 @@ export default function Roulette({ show, setShow }: RouletteProps) {
         exit="exit"
       >
         <div className="p-10 flex flex-col justify-center items-center bg-base-100 border-2 border-black rounded-3xl mb-20">
+          {doneSpin === 2 && <ConfettiExplosion zIndex={100} force={0.7} />}
           <p className="text-xl font-bold mb-2">The Lucky Ones are...</p>
           {donors?.length && npos?.length && isClient ? (
             <>
@@ -148,7 +149,6 @@ export default function Roulette({ show, setShow }: RouletteProps) {
                   />
                 </div>
 
-                {doneSpin === 2 && <ConfettiExplosion zIndex={100} force={0.7} />}
                 <div className="flex flex-col items-center">
                   <span className="text-lg font-semibold"> 🎉 NPO 🎉</span>
                   <Wheel
@@ -165,6 +165,7 @@ export default function Roulette({ show, setShow }: RouletteProps) {
                   />
                 </div>
               </div>
+              <p>Funds are automatically transfered to the lucky ones wallet.</p>
               <button className="btn btn-secondary w-20 mt-4" onClick={() => setShow(false)}>
                 Close
               </button>
