@@ -21,6 +21,7 @@ contract SFGContract {
 
 	struct Donation {
 		address user;
+		string name;
 		uint256 amount;
 		uint256 timestamp;
 	}
@@ -41,11 +42,11 @@ contract SFGContract {
 		lastUserWinner = owner;
 	}
 
-	function donate() external payable {
+	function donate(string memory name) external payable {
 		uint donationPoolInc = (msg.value * 75) / 100;
 		donationPool += donationPoolInc;
 		prizePool += msg.value - donationPoolInc;
-		donations.push(Donation(msg.sender, msg.value, block.timestamp));
+		donations.push(Donation(msg.sender, name, msg.value, block.timestamp));
 	}
 
 	function registerNPO(
@@ -104,6 +105,14 @@ contract SFGContract {
 
 	function getListOfNPOs() external view returns (NPO[] memory) {
 		return registeredNPOs;
+	}
+
+	function getPrizePool() external view returns (uint256) {
+		return prizePool;
+	}
+
+	function getDonationPool() external view returns (uint256) {
+		return donationPool;
 	}
 
 	function getRandomWinnerIndex(
