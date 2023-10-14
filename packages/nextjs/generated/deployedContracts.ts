@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          address: "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
           abi: [
             {
               inputs: [
@@ -71,7 +71,7 @@ const contracts = {
               inputs: [],
               name: "endOfDuration",
               outputs: [],
-              stateMutability: "payable",
+              stateMutability: "nonpayable",
               type: "function",
             },
             {
@@ -89,7 +89,20 @@ const contracts = {
             },
             {
               inputs: [],
-              name: "lastWinner",
+              name: "lastNPOWinner",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "lastUserWinner",
               outputs: [
                 {
                   internalType: "address",

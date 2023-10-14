@@ -15,7 +15,8 @@ import "hardhat/console.sol";
 contract YourContract {
 	uint256 public prizePool;
 	uint256 public donationPool;
-	address public lastWinner;
+	address public lastNPOWinner;
+	address public lastUserWinner;
 	address public immutable owner;
 
 	struct Donation {
@@ -31,7 +32,8 @@ contract YourContract {
 		owner = _owner;
 		prizePool = 0;
 		donationPool = 0;
-		lastWinner = owner;
+		lastNPOWinner = owner;
+		lastUserWinner = owner;
 	}
 
 	function donate() external payable {
@@ -45,17 +47,18 @@ contract YourContract {
 		registeredNPOs.push(_npoAddr);
 	}
 
-	function endOfDuration() external payable {
+	function endOfDuration() external {
 		require(registeredNPOs.length > 0, "No registered NPOs.");
 
+		// get random NPO winner
 		uint256 NPOwinnerIndex = getRandomWinnerIndex(registeredNPOs.length);
-		lastWinner = registeredNPOs[NPOwinnerIndex];
+		lastNPOWinner = registeredNPOs[NPOwinnerIndex];
 
 		// transfer to winningNPO
 		uint256 donationSplit = donationPool / 2;
 		uint256 donationRoulette = donationPool - donationSplit;
-		(bool sent, ) = lastWinner.call{ value: donationRoulette }("");
-		require(sent, "Transfer failed.");
+		(bool NPOSent, ) = lastNPOWinner.call{ value: donationRoulette }("");
+		require(NPOSent, "Transfer failed.");
 
 		// transfer to all NPOs the average
 		uint256 donationPerUser = donationSplit / registeredNPOs.length;
@@ -63,7 +66,17 @@ contract YourContract {
 			registeredNPOs[i].transfer(donationPerUser);
 		}
 
-		prizePool -= (prizePool * 75) / 100;
+		// get random User winner
+		uint256 userWinnerIndex = getRandomWinnerIndex(donations.length);
+		lastUserWinner = donations[userWinnerIndex].user;
+
+		// transfer to winningUser
+		uint256 userWinAmount = (prizePool * 75) / 100;
+		(bool UserSent, ) = lastUserWinner.call{ value: userWinAmount }("");
+		require(UserSent, "Transfer failed.");
+
+		// reset pools
+		prizePool -= userWinAmount;
 		donationPool = 0;
 	}
 
