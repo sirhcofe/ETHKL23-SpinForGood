@@ -29,7 +29,7 @@ export default function Home() {
 
   useEffect(() => {
     if (qDonors) {
-      const newDonors = qDonors.map((donor, i) => {
+      const newDonors = qDonors.map(donor => {
         return {
           ...donor,
           option: formattedAddress(donor.user),

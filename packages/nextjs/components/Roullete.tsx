@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ButtonMarquee from "./ButtonMarquee";
 import { Wheel } from "react-custom-roulette";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-import { notification } from "~~/utils/scaffold-eth";
 
 interface RoulleteProps {
   donors: any[];

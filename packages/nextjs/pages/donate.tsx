@@ -12,7 +12,7 @@ export default function Donate() {
   //   // else notification.warning("")
   // };
 
-  const multiplyBy1e18 = useCallback(value => {
+  const multiplyBy1e18 = useCallback((value: any) => {
     if (!value) {
       return;
     }
