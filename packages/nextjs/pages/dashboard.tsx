@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { useInView, useMotionValue, useSpring } from "framer-motion";
+import { animate, useInView, useMotionValue, useSpring } from "framer-motion";
 // import ButtonMarquee from "~~/components/ButtonMarquee";
 // import CustomCountdown from "~~/components/CustomCountdown";
 // import ButtonMarquee from "~~/components/ButtonMarquee";
@@ -13,41 +13,55 @@ import { formattedAddress } from "~~/utils/formatAddress";
 
 const CustomCountdown = dynamic(() => import("~~/components/CustomCountdown"));
 
-function Counter({ value, direction = "up" }: { value: number; direction?: "up" | "down" }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, {
-    damping: 100,
-    stiffness: 100,
-  });
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+// function Counter({ value, direction = "up" }: { value: number; direction?: "up" | "down" }) {
+//   const ref = useRef<HTMLSpanElement>(null);
+//   const motionValue = useMotionValue(0);
+
+//   const springValue = useSpring(motionValue, {
+//     damping: 50,
+//     stiffness: 500,
+//   });
+//   const isInView = useInView(ref, { once: true });
+
+//   useEffect(() => {
+//     if (isInView) {
+//       motionValue.set(direction === "down" ? 0 : value);
+//     }
+//   }, [motionValue, isInView]);
+
+//   useEffect(
+//     () =>
+//       springValue.on("change", latest => {
+//         console.log("BRUH", springValue.get());
+//         if (ref.current) {
+//           const formattedValue = new Intl.NumberFormat("en-US", {
+//             minimumFractionDigits: 6,
+//             maximumFractionDigits: 6,
+//           }).format(latest);
+//           ref.current.textContent = formattedValue;
+//         }
+//       }),
+//     [springValue],
+//   );
+
+//   return <span className="text-3xl md:text-6xl font-bold" ref={ref} />;
+// }
+
+function Counter({ to }: { to: number }) {
+  const nodeRef = useRef();
 
   useEffect(() => {
-    console.log("value", value);
-  }, []);
+    const node = nodeRef.current;
 
-  useEffect(() => {
-    if (isInView) {
-      motionValue.set(direction === "down" ? 0 : value);
-    }
-  }, [motionValue, isInView]);
+    const controls = animate(0, to, {
+      duration: 1,
+      onUpdate(value) {
+        node.textContent = value.toFixed(2);
+      },
+    });
+  }, [to]);
 
-  useEffect(
-    () =>
-      springValue.on("change", latest => {
-        if (ref.current) {
-          // Format the number with 2 decimal places
-          const formattedValue = new Intl.NumberFormat("en-US", {
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6,
-          }).format(latest);
-          ref.current.textContent = formattedValue;
-        }
-      }),
-    [springValue],
-  );
-
-  return <span className="text-3xl md:text-6xl font-bold" ref={ref} />;
+  return <p ref={nodeRef} />;
 }
 
 export default function Home() {
@@ -148,7 +162,7 @@ export default function Home() {
                 <h1 className="text-2xl md:text-4xl font-bold">Prize Pool:</h1>
                 {runCounter === true && (
                   <div className="flex space-x-2 items-end">
-                    <Counter value={prizePool} />
+                    {/* <Counter value={prizePool} /> */}
                     <p className="text-3xl md:text-5xl font-bold">ETH</p>
                   </div>
                 )}
