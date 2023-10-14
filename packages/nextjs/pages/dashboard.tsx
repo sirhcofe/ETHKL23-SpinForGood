@@ -47,6 +47,7 @@ export default function Home() {
           option: formattedAddress(donor.user),
         };
       });
+      console.log(newDonors);
       newDonors.sort((a, b) => Number(b.amount - a.amount));
       setDonors(newDonors);
     }
@@ -93,7 +94,7 @@ export default function Home() {
             <ul className="mt-4 flex flex-col gap-3">
               {donors?.map((data, i) => (
                 <li key={i} className="flex justify-between bg-base-100 p-2 px-4 rounded-lg border border-black">
-                  <p className="text-elipsis w-full truncate">{data.user}</p>
+                  <p className="text-elipsis w-full truncate">{data.name}</p>
                   <p>{Number(data.amount) / 10 ** 18}ETH</p>
                 </li>
               ))}

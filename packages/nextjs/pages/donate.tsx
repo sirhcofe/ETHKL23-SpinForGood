@@ -5,6 +5,7 @@ import { notification } from "~~/utils/scaffold-eth";
 
 export default function Donate() {
   const [donateVal, setDonateVal] = useState(0.001);
+  const [name, setName] = useState("Anonymous");
 
   // const adjustDonateVal = (val: number) => {
   //   const res = donateVal + val;
@@ -26,6 +27,7 @@ export default function Donate() {
     contractName: "SFGContract",
     functionName: "donate",
     value: multiplyBy1e18(donateVal),
+    args: [name],
   });
 
   const onDonate = () => {
@@ -64,19 +66,32 @@ export default function Donate() {
                 </div>
               </div>
 
-              <div className="mt-6 my-2 w-auto flex flex-col">
+              <div className="my-2 w-auto flex flex-col">
+                <label className="ml-3 font-bold" htmlFor="name">Name</label>
+                <p className="ml-3">Leave empty to stay Anonymous</p>
+                <div className="mt-1 flex items-center input input-bordered bg-base-100 w-[360px]">
+                  <input
+                    className="w-full ml-2 font-bold text-xl bg-base-100"
+                    type="text"
+                    placeholder="Anonymous"
+                    onChange={e => setName(e.currentTarget.value)}
+                  />
+                </div>
+              </div>
+              <div className="my-2 w-auto flex flex-col">
                 <label className="ml-3 font-bold">Donation Amount</label>
                 <div className="mt-1 flex items-center input input-bordered bg-base-100 w-[360px]">
                   <label className="ml-2 font-bold text-xl select-none mr-2">ETH</label>
                   <input
-                    className="w-[120px] font-bold text-xl bg-base-100"
+                    className="w-full font-bold text-xl bg-base-100"
                     type="number"
                     value={donateVal}
                     onChange={e => setDonateVal(parseFloat(e.currentTarget.value))}
+                    
                   />
                 </div>
-                <span className="ml-3 mt-2 text-accent">{`ETH${(donateVal * 0.75).toFixed(5)} into Donation`}</span>
-                <span className="ml-3  text-primary">{`ETH${(donateVal * 0.25).toFixed(5)} into Prize`}</span>
+                <span className="ml-3 mt-2 text-accent">{`ETH${(donateVal * 0.75).toFixed(5)} into Donation Pool`}</span>
+                <span className="ml-3  text-primary">{`ETH${(donateVal * 0.25).toFixed(5)} into Prize Pool`}</span>
               </div>
               {/* 
               <div className="flex justify-center items-center gap-2">
