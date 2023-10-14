@@ -44,6 +44,9 @@ contract YourContract {
 	}
 
 	function registerNPO(address payable _npoAddr) external {
+		for (uint256 i = 0; i < registeredNPOs.length; i++) {
+			require(registeredNPOs[i] != _npoAddr, "NPO already registered.");
+		}
 		registeredNPOs.push(_npoAddr);
 	}
 
@@ -82,6 +85,14 @@ contract YourContract {
 
 	function getContractBalance() external view returns (uint256) {
 		return address(this).balance;
+	}
+
+	function getListOfDonors() external view returns (Donation[] memory) {
+		return donations;
+	}
+
+	function getListOfNPOs() external view returns (address payable[] memory) {
+		return registeredNPOs;
 	}
 
 	function getRandomWinnerIndex(
