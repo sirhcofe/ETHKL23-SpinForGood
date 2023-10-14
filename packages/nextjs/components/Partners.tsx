@@ -29,7 +29,7 @@ const PartnerCard = ({ id }: { id: [string, string, string] }) => {
         <Image className="w-full h-full object-cover" src={id[0]} alt="NPO" width={768} height={1024} />
       </div>
       <motion.div
-        className="w-[90%] md:w-[400px] mx-5 space-y-3 p-5 rounded-xl bg-white bg-opacity-90 md:bg-transparent"
+        className="w-[90%] md:w-[400px] mx-5 space-y-3 p-5 rounded-xl bg-secondary bg-opacity-90 md:bg-transparent"
         style={{ y }}
       >
         <h2 className="font-extrabold text-4xl">{id[1]}</h2>
