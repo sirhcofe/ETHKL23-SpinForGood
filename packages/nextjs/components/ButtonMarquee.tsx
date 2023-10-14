@@ -13,7 +13,7 @@ export default function ButtonMarquee({ isLoading = undefined, text, ...props }:
       //   onClick={() => onDonate()}
       {...props}
     >
-      {isLoading != undefined && <span className={isLoading ? "loading loading-spinner" : ""}></span>}
+      {isLoading && <span className={isLoading ? "loading loading-spinner" : ""}></span>}
       <span className=" text-black font-bold group-hover:hidden ">{text}</span>
       <span className="hidden marquee-text text-black font-bold group-hover:block group-hover:animate-marquee">
         {text}

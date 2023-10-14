@@ -39,7 +39,7 @@ export default function Donate() {
   return (
     <>
       <div className="flex flex-col justify-center items-center h-full flex-1 py-10">
-        <div className="flex flex-col gap-4 items-center p-10 w-[45rem] border-2 rounded-3xl border-black bg-base-100">
+        <div className="flex flex-col gap-4 items-center py-8 px-4 md:p-10 w-full max-w-[45rem] border-2 rounded-3xl border-black bg-base-100">
           {isSuccess ? (
             <>
               <p className="font-bold text-3xl">🧡 Thank you for your donation🧡</p>
@@ -52,9 +52,9 @@ export default function Donate() {
                 our way of saying thanks for your support!
               </p>
 
-              <div>
+              <div className="flex-1 w-full flex-col flex items-center">
                 <p className="text-sm opacity-70 w-full text-center mb-1">Donation distribution</p>
-                <div className="w-[400px] flex rounded-xl overflow-clip">
+                <div className="w-full max-w-[400px] flex rounded-xl overflow-clip">
                   <div className="bg-yellow-500 w-[75%] h-8 flex justify-center items-center">
                     <span className="text-yellow-200 font-bold">Donation</span>
                   </div>
@@ -64,25 +64,19 @@ export default function Donate() {
                 </div>
               </div>
 
-              <div className="mt-6 my-2">
-                <label className="ml-3">Donation Amount</label>
-                <div className="mt-1 flex items-center input input-bordered bg-base-100">
+              <div className="mt-6 my-2 w-auto flex flex-col">
+                <label className="ml-3 font-bold">Donation Amount</label>
+                <div className="mt-1 flex items-center input input-bordered bg-base-100 w-[360px]">
                   <label className="ml-2 font-bold text-xl select-none mr-2">ETH</label>
                   <input
-                    className="w-60 font-bold text-xl bg-base-100"
+                    className="w-[120px] font-bold text-xl bg-base-100"
                     type="number"
                     value={donateVal}
                     onChange={e => setDonateVal(parseFloat(e.currentTarget.value))}
                   />
                 </div>
-                <label className="">
-                  <span className="ml-3 label-text-alt text-accent">
-                    Donation Pool: ETH{(donateVal * 0.75).toFixed(5)}
-                  </span>
-                  <span className="ml-3 label-text-alt text-primary">
-                    Prize Pool: ETH{(donateVal * 0.25).toFixed(5)}
-                  </span>
-                </label>
+                <span className="ml-3 mt-2 text-accent">{`ETH${(donateVal * 0.75).toFixed(5)} into Donation`}</span>
+                <span className="ml-3  text-primary">{`ETH${(donateVal * 0.25).toFixed(5)} into Prize`}</span>
               </div>
               {/* 
               <div className="flex justify-center items-center gap-2">

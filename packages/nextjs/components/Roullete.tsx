@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ButtonMarquee from "./ButtonMarquee";
 import { Wheel } from "react-custom-roulette";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { notification } from "~~/utils/scaffold-eth";
 
 interface RoulleteProps {
   donors: any[];
@@ -26,24 +27,19 @@ export default function Roullete({ donors, npos }: RoulleteProps) {
   useEffect(() => {
     if (qDonorWinner) {
       const index = donors.findIndex(ele => ele.user === qDonorWinner);
-      console.log("donor win", index);
-
-      setDonorWinner(index - 1);
+      // if (index === -1) notification.error("Winner can't be found");
+      setDonorWinner(index);
     }
   }, [qDonorWinner]);
 
   useEffect(() => {
     if (qNPOWinner) {
       const index = npos.findIndex(ele => ele.ori === qNPOWinner);
-      console.log("NPO win", index);
-      console.log(qNPOWinner);
-      console.log(npos);
 
-      setNPOWinner(index - 1);
+      setNPOWinner(index);
     }
   }, [qNPOWinner]);
 
-  console.log(donorWinner, NPOWinner);
   return (
     <div className="py-10 flex flex-col justify-center items-center">
       {donors?.length && npos?.length ? (

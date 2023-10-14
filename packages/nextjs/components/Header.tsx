@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Bars3Icon, GiftIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, GiftIcon, HomeIcon, SparklesIcon, StarIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
@@ -36,19 +36,25 @@ export const Header = () => {
 
   const navLinks = (
     <>
-      <li>
+      <li className="text-md font-semibold">
         <NavLink href="/">
-          <GiftIcon className="h-4 w-4" />
+          <HomeIcon className="h-4 w-4" />
           Home
         </NavLink>
       </li>
-      <li>
+      <li className="text-md font-semibold">
         <NavLink href="/donate">
           <GiftIcon className="h-4 w-4" />
           Donate and Win
         </NavLink>
       </li>
-      <li>
+      <li className="text-md font-semibold">
+        <NavLink href="/dashboard">
+          <StarIcon className="h-4 w-4" />
+          Dashboard
+        </NavLink>
+      </li>
+      <li className="text-md font-semibold">
         <NavLink href="/register">
           <SparklesIcon className="h-4 w-4" />
           Register your organization
@@ -57,19 +63,19 @@ export const Header = () => {
     </>
   );
 
-  const devLinks = (
-    <>
-      <li>
-        <NavLink href="/debug">Debug Contract</NavLink>
-      </li>
-      <li>
-        <NavLink href="/blockexplorer">Block Explorer</NavLink>
-      </li>
-    </>
-  );
+  // const devLinks = (
+  //   <>
+  //     <li>
+  //       <NavLink href="/debug">Debug Contract</NavLink>
+  //     </li>
+  //     <li>
+  //       <NavLink href="/blockexplorer">Block Explorer</NavLink>
+  //     </li>
+  //   </>
+  // );
 
   return (
-    <div className="sticky lg:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 w-[90%] border-b-2 border-l-2 border-r-2 border-black rounded-b-2xl self-center justify-between z-20 px-0 sm:px-2">
+    <div className="sticky lg:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 w-full border-b-2 border-l-2 border-r-2 border-black rounded-b-2xl self-center justify-between z-20 px-0 sm:px-2">
       <div className="navbar-start w-auto lg:w-1/2">
         <div className="lg:hidden dropdown" ref={burgerMenuRef}>
           <label
@@ -102,14 +108,14 @@ export const Header = () => {
       </div>
       <div className="navbar-center">
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
-        <div className="dropdown" ref={burgerMenuRef}>
+        {/* <div className="dropdown" ref={burgerMenuRef}>
           <label tabIndex={0} className={`ml-1 btn btn-ghost "hover:bg-secondary`}>
             <Bars3Icon className="h-1/2" />
           </label>
           <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
             {devLinks}
           </ul>
-        </div>
+        </div> */}
       </div>
       <div className="navbar-end flex-grow mr-4">
         <RainbowKitCustomConnectButton />

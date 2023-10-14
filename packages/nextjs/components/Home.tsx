@@ -117,7 +117,7 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-col w-full h-[100vh] items-center justify-center ">
-        <h1 className="text-6xl md:text-9xl font-extrabold -mt-20 z-10">hello.</h1>
+        <h1 className="text-6xl md:text-9xl font-extrabold -mt-20 z-10">Spin For Good</h1>
       </div>
       <div className="flex flex-col w-full h-[100vh] items-start justify-center">
         <h1 className="text-5xl md:text-9xl font-extrabold ml-5 md:ml-32 -mt-20 z-10 text-[#009395]">Your</h1>
