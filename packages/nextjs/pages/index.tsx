@@ -1,73 +1,86 @@
-import Link from "next/link";
-import type { NextPage } from "next";
-import { BugAntIcon, MagnifyingGlassIcon, SparklesIcon } from "@heroicons/react/24/outline";
-import { MetaHeader } from "~~/components/MetaHeader";
+import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+// import ButtonMarquee from "~~/components/ButtonMarquee";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { formattedAddress } from "~~/utils/formatAddress";
 
-const Home: NextPage = () => {
+const DynamicWheel = dynamic(() => import("~~/components/Roullete"), {
+  ssr: false,
+});
+
+export default function Home() {
+  const [donors, setDonors] = useState<any[]>([]);
+  const [npos, setNPOs] = useState<any[]>([]);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const { data: qDonors } = useScaffoldContractRead({
+    contractName: "YourContract",
+    functionName: "getListOfDonors",
+  });
+
+  const { data: qNPOs } = useScaffoldContractRead({
+    contractName: "YourContract",
+    functionName: "getListOfNPOs",
+  });
+
+  useEffect(() => {
+    if (qDonors) {
+      const newDonors = qDonors.map((donor, i) => {
+        return {
+          ...donor,
+          option: formattedAddress(donor.user),
+        };
+      });
+      setDonors(newDonors);
+      console.log(qDonors);
+    }
+  }, [qDonors]);
+
+  useEffect(() => {
+    if (qNPOs) {
+      const newNPOs = qNPOs.map((npo, i) => {
+        return {
+          option: formattedAddress(npo),
+        };
+      });
+      setNPOs(newNPOs);
+    }
+  }, [qNPOs]);
+
+  console.log(donors.length);
+
   return (
     <>
-      <MetaHeader />
-      <div className="flex items-center flex-col flex-grow pt-10">
-        <div className="px-5">
-          <h1 className="text-center mb-8">
-            <span className="block text-2xl mb-2">Welcome to</span>
-            <span className="block text-4xl font-bold">Scaffold-ETH 2</span>
-          </h1>
-          <p className="text-center text-lg">
-            Get started by editing{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/nextjs/pages/index.tsx
-            </code>
-          </p>
-          <p className="text-center text-lg">
-            Edit your smart contract{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              YourContract.sol
-            </code>{" "}
-            in{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/hardhat/contracts
-            </code>
-          </p>
-        </div>
-
-        <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-          <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <BugAntIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Tinker with your smart contract using the{" "}
-                <Link href="/debug" passHref className="link">
-                  Debug Contract
-                </Link>{" "}
-                tab.
-              </p>
-            </div>
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <SparklesIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Experiment with{" "}
-                <Link href="/example-ui" passHref className="link">
-                  Example UI
-                </Link>{" "}
-                to build your own UI.
-              </p>
-            </div>
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <MagnifyingGlassIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Explore your local transactions with the{" "}
-                <Link href="/blockexplorer" passHref className="link">
-                  Block Explorer
-                </Link>{" "}
-                tab.
-              </p>
-            </div>
+      {isClient ? (
+        <div className="flex-1 flex  flex-col justify-center items-center">
+          <DynamicWheel donors={donors} npos={npos} />
+          {/* <ButtonMarquee text="Start Routlette" /> */}
+          <div className="rounded-xl p-10 max-w-4xl w-full bg-base-100 border-2 border-black">
+            {donors.length ? (
+              <>
+                <p className="font-bold text-3xl">Recently Donated</p>
+                <ul className="mt-4 flex flex-col gap-3">
+                  {donors?.map((data, i) => (
+                    <li key={i} className="bg-base-100 p-2 px-4 rounded-lg border border-black">
+                      {data.user}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p className="font-bold text-3xl">No one donated 😢</p>
+            )}
           </div>
         </div>
-      </div>
+      ) : (
+        <></>
+      )}
     </>
   );
-};
+}
 
-export default Home;
+//
