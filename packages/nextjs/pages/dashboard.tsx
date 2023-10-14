@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useInView, useMotionValue, useSpring } from "framer-motion";
-// import ButtonMarquee from "~~/components/ButtonMarquee";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { formattedAddress } from "~~/utils/formatAddress";
 
@@ -148,7 +147,7 @@ export default function Home() {
         <div className="rounded-xl py-5 md:py-10 px-6 md:px-14 w-[85%] md:w-[45%] h-fit md:h-[324px] md:overflow-y-scroll bg-base-100 border-2 border-black">
           {donors.length ? (
             <>
-              <p className="font-bold  text-2xl md:text-4xl">Recently Donated</p>
+              <p className="font-bold  text-2xl md:text-4xl">Top Donors</p>
               <ul className="mt-4 flex flex-col gap-3">
                 {donors?.map((data, i) => (
                   <li key={i} className="flex justify-between bg-base-100 p-2 px-4 rounded-lg border border-black">
@@ -164,31 +163,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-    // <div className="">
-    //   {isClient ? (
-    //     <div className="flex-1 flex  flex-col justify-center items-center px-4">
-    //       <DynamicWheel donors={donors} npos={npos} />
-    //       {/* <ButtonMarquee text="Start Routlette" /> */}
-    //       <div className="rounded-xl p-10 max-w-4xl w-full bg-base-100 border-2 border-black">
-    //         {donors.length ? (
-    //           <>
-    //             <p className="font-bold text-3xl">Recently Donated</p>
-    //             <ul className="mt-4 flex flex-col gap-3">
-    //               {donors?.map((data, i) => (
-    //                 <li key={i} className="bg-base-100 p-2 px-4 rounded-lg border border-black">
-    //                   <p className="text-elipsis w-full truncate">{data.user}</p>
-    //                 </li>
-    //               ))}
-    //             </ul>
-    //           </>
-    //         ) : (
-    //           <p className="font-bold text-3xl">No one donated 😢</p>
-    //         )}
-    //       </div>
-    //     </div>
-    //   ) : (
-    //     <></>
-    //   )}
-    // </div>
   );
 }

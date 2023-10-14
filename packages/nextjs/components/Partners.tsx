@@ -3,7 +3,7 @@ import Image from "next/image";
 import { MotionValue, motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 const loremIpsum =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet. Enim ut tellus elementum sagittis vitae et leo duis ut. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Tortor dignissim convallis aenean et tortor at risus viverra adipiscing. In ornare quam viverra orci. Ut tortor pretium viverra suspendisse potenti nullam ac. Pulvinar sapien et ligula ullamcorper. Rhoncus mattis rhoncus urna neque viverra justo nec. Mauris sit amet massa vitae tortor condimentum. Et egestas quis ipsum suspendisse ultrices gravida. Pulvinar etiam non quam lacus suspendisse faucibus interdum. Placerat duis ultricies lacus sed turpis tincidunt. Tempus imperdiet nulla malesuada pellentesque elit eget. In iaculis nunc sed augue lacus viverra vitae congue eu.";
+  "Non-profit organizations (NPOs) are dedicated entities committed to making a positive impact on society without the primary goal of generating profits. They are driven by a mission to serve the common good and often rely on donations, grants, and volunteer efforts to support their activities. Their work ranges from humanitarian aid, healthcare, and environmental conservation to education, arts and culture promotion, and many other vital areas, contributing to the betterment of society and the well-being of its members.";
 
 const partners: [string, string, string][] = [
   ["/partners/npo1.jpg", "NPO 1", loremIpsum],
