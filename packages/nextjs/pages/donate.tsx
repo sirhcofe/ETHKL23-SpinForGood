@@ -14,7 +14,7 @@ export default function Donate() {
     if (donate === false) setDonate(true);
   }, [router.asPath]);
 
-  const multiplyBy1e18 = useCallback(value => {
+  const multiplyBy1e18 = useCallback((value: any) => {
     if (!value) {
       return;
     }
@@ -49,7 +49,7 @@ export default function Donate() {
         <div className="flex flex-col gap-4 items-center py-8 px-4 md:p-10 w-full max-w-[45rem] border-2 rounded-3xl border-black bg-base-100">
           {!donate && isSuccess ? (
             <>
-              <p className="font-bold text-3xl">🧡 Thank you for your donation🧡</p>
+              <p className="font-bold text-2xl lg:text-3xl text-center">🧡 Thank you for your donation 🧡</p>
               <button className="btn btn-primary mt-6" onClick={() => setDonate(true)}>
                 Donate Again
               </button>
