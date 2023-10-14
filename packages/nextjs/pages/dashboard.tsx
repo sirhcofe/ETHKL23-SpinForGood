@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+// import ButtonMarquee from "~~/components/ButtonMarquee";
 // import CustomCountdown from "~~/components/CustomCountdown";
 // import ButtonMarquee from "~~/components/ButtonMarquee";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { formattedAddress } from "~~/utils/formatAddress";
 
-const DynamicWheel = dynamic(() => import("~~/components/Roullete"), {
-  ssr: false,
-});
+// const DynamicWheel = dynamic(() => import("~~/components/Roullete"), {
+//   ssr: false,
+// });
 
 const CustomCountdown = dynamic(() => import("~~/components/CustomCountdown"));
 
@@ -96,14 +97,16 @@ export default function Home() {
 
           {/* <DynamicWheel donors={donors} npos={npos} /> */}
 
-          <div className="rounded-xl p-10 max-w-4xl w-full bg-base-100 border-2 border-black">
+          <div className="rounded-xl p-6 md:px-10 md:py-8 max-w-4xl w-full ">
             {donors.length ? (
               <>
-                <p className="font-bold text-3xl">Recently Donated</p>
+                <p className="font-bold text-3xl">Top Donaters</p>
                 <ul className="mt-4 flex flex-col gap-3">
                   {donors?.map((data, i) => (
                     <li key={i} className="flex justify-between bg-base-100 p-2 px-4 rounded-lg border border-black">
-                      <p className="text-elipsis w-full truncate">{data.name}</p>
+                      <p className="text-elipsis w-full truncate mr-4">
+                        {data.name === "Anonymous" ? data.user : data.name}
+                      </p>
                       <p>{Number(data.amount) / 10 ** 18}ETH</p>
                     </li>
                   ))}

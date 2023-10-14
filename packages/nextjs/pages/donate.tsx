@@ -34,7 +34,7 @@ export default function Donate() {
     contractName: "SFGContract",
     functionName: "donate",
     value: multiplyBy1e18(donateVal),
-    args: [name],
+    args: [name === "" ? "Anonymous" : name],
   });
 
   const onDonate = () => {
