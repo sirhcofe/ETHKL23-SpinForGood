@@ -132,8 +132,8 @@ export default function Home() {
         <div className="flex-1 flex-col flex items-center justify-center">
           <CustomCountdown />
 
-          <div className="w-full flex flex-col md:flex-row justify center md:justify-between px-4 md:px-60">
-            <div className="flex flex-col w-[85%] md:w-[45%] rounded-xl py-5 md:py-10 px-6 md:px-14 border-2 border-[#291334] space-y-10 justify-between">
+          <div className="w-full flex flex-col md:flex-row justify-center md:justify-between px-4 md:px-60">
+            <div className="flex flex-col min-w-[300px] lg:min-w-[500px] md:w-[45%] rounded-xl py-5 md:py-10 px-6 md:px-14 border-2 border-[#291334] space-y-10 justify-between">
               <div className="w-full">
                 <h1 className="text-2xl md:text-4xl font-bold">Donation Pool:</h1>
                 {runCounter === true && (
