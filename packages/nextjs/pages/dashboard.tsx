@@ -155,8 +155,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* <DynamicWheel donors={donors} npos={npos} /> */}
-
             <div className="rounded-xl p-6 md:px-10 md:py-8 max-w-4xl w-full ">
               {donors.length ? (
                 <>

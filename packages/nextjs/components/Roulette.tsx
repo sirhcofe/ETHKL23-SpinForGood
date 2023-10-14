@@ -111,7 +111,7 @@ export default function Roulette() {
           <ButtonMarquee text="Spin" isLoading={spin} onClick={() => setSpin(true)} />
         </>
       ) : (
-        <p>Roulette cannot show without </p>
+        <p>Roulette is not ready now :c</p>
       )}
     </div>
   );
