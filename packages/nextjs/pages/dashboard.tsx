@@ -173,6 +173,25 @@ export default function Home() {
               )}
             </div>
           </div>
+          <div className="rounded-xl p-6 mt-6 md:px-10 md:py-8 max-w-4xl w-full ">
+            {npos.length ? (
+              <>
+                <p className="font-bold text-3xl">Eligible NPOs</p>
+                <ul className="mt-4 flex flex-col gap-3">
+                  {npos?.map((data, i) => (
+                    <li key={i} className="flex justify-between bg-base-100 p-2 px-4 rounded-lg border border-black">
+                      <p className="text-elipsis w-full truncate mr-4">
+                        {/* {data.name === "Anonymous" ? data.user : data.name} */}
+                        {data.option}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p className="font-bold text-3xl">No NPOs registered</p>
+            )}
+          </div>
         </div>
       ) : (
         <></>
