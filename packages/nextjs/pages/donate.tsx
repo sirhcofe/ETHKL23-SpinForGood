@@ -23,7 +23,7 @@ export default function Donate() {
   }, []);
 
   const { writeAsync, isLoading, isSuccess } = useScaffoldContractWrite({
-    contractName: "YourContract",
+    contractName: "SFGContract",
     functionName: "donate",
     value: multiplyBy1e18(donateVal),
   });

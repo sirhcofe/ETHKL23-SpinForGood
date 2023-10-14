@@ -18,12 +18,12 @@ export default function Home() {
   }, []);
 
   const { data: qDonors } = useScaffoldContractRead({
-    contractName: "YourContract",
+    contractName: "SFGContract",
     functionName: "getListOfDonors",
   });
 
   const { data: qNPOs } = useScaffoldContractRead({
-    contractName: "YourContract",
+    contractName: "SFGContract",
     functionName: "getListOfNPOs",
   });
 

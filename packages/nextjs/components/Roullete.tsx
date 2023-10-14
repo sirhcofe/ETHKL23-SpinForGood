@@ -14,12 +14,12 @@ export default function Roullete({ donors, npos }: RoulleteProps) {
   const [donorWinner, setDonorWinner] = useState(0);
 
   const { data: qDonorWinner } = useScaffoldContractRead({
-    contractName: "YourContract",
+    contractName: "SFGContract",
     functionName: "lastUserWinner",
   });
 
   const { data: qNPOWinner } = useScaffoldContractRead({
-    contractName: "YourContract",
+    contractName: "SFGContract",
     functionName: "lastNPOWinner",
   });
 
