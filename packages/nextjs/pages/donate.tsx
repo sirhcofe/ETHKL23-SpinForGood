@@ -1,10 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ButtonMarquee from "~~/components/ButtonMarquee";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
 
 export default function Donate() {
   const [donateVal, setDonateVal] = useState(0.001);
+  const [donate, setDonate] = useState(true);
 
   // const adjustDonateVal = (val: number) => {
   //   const res = donateVal + val;
@@ -36,13 +37,20 @@ export default function Donate() {
     }
   };
 
+  useEffect(() => {
+    setDonate(false);
+  }, [isSuccess]);
+
   return (
     <>
       <div className="flex flex-col justify-center items-center h-full flex-1 py-10">
         <div className="flex flex-col gap-4 items-center py-8 px-4 md:p-10 w-full max-w-[45rem] border-2 rounded-3xl border-black bg-base-100">
-          {isSuccess ? (
+          {!donate ? (
             <>
               <p className="font-bold text-3xl">🧡 Thank you for your donation🧡</p>
+              <button className="btn btn-primary mt-6" onClick={() => setDonate(true)}>
+                Donate Again
+              </button>
             </>
           ) : (
             <>

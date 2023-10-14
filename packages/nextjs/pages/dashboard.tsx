@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+// import CustomCountdown from "~~/components/CustomCountdown";
 // import ButtonMarquee from "~~/components/ButtonMarquee";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { formattedAddress } from "~~/utils/formatAddress";
@@ -7,6 +8,8 @@ import { formattedAddress } from "~~/utils/formatAddress";
 const DynamicWheel = dynamic(() => import("~~/components/Roullete"), {
   ssr: false,
 });
+
+const CustomCountdown = dynamic(() => import("~~/components/CustomCountdown"));
 
 export default function Home() {
   const [donors, setDonors] = useState<any[]>([]);
@@ -45,7 +48,7 @@ export default function Home() {
       const newNPOs = qNPOs.map(npo => {
         return {
           ori: npo.addr,
-          option: formattedAddress(npo.addr),
+          option: npo.name,
         };
       });
       setNPOs(newNPOs);
@@ -54,6 +57,7 @@ export default function Home() {
 
   return (
     <>
+      <CustomCountdown />
       {isClient ? (
         <div className="flex-1 flex  flex-col justify-center items-center px-4">
           <DynamicWheel donors={donors} npos={npos} />

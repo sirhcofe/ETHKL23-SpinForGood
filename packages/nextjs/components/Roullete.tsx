@@ -45,7 +45,7 @@ export default function Roullete({ donors, npos }: RoulleteProps) {
         <>
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="flex flex-col items-center">
-              <span>The Lucky Donor</span>
+              <span className="text-lg font-semibold">✨ Donor ✨</span>
               <Wheel
                 mustStartSpinning={spin}
                 prizeNumber={donorWinner} // the winning address
@@ -59,7 +59,7 @@ export default function Roullete({ donors, npos }: RoulleteProps) {
               />
             </div>
             <div className="flex flex-col items-center">
-              <span>The Lucky NPO</span>
+              <span className="text-lg font-semibold"> 🎉 NPO 🎉</span>
               <Wheel
                 mustStartSpinning={spin}
                 prizeNumber={NPOWinner} // the winning address
