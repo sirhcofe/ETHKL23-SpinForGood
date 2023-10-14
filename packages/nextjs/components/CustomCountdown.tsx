@@ -52,7 +52,7 @@ export default function CustomCountdown() {
 
   return (
     <div className="my-10 mb-14 max-w-max flex flex-col justify-center items-center">
-      <p className="text-3xl font-bold mb-6">To the next Roullete⏳</p>
+      <p className="text-3xl font-bold mb-6">To the next Roulette⏳</p>
       <Countdown
         key={key}
         date={date}
