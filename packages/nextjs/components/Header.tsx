@@ -37,16 +37,27 @@ export const Header = () => {
   const navLinks = (
     <>
       <li>
-        <NavLink href="/debug">
+        <NavLink href="/donate">
           <GiftIcon className="h-4 w-4" />
           Donate and Win
         </NavLink>
       </li>
       <li>
-        <NavLink href="/example-ui">
+        <NavLink href="/register">
           <SparklesIcon className="h-4 w-4" />
           Register your organization
         </NavLink>
+      </li>
+    </>
+  );
+
+  const devLinks = (
+    <>
+      <li>
+        <NavLink href="/debug">Debug Contract</NavLink>
+      </li>
+      <li>
+        <NavLink href="/blockexplorer">Block Explorer</NavLink>
       </li>
     </>
   );
@@ -85,6 +96,14 @@ export const Header = () => {
       </div>
       <div className="navbar-center">
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
+        <div className="dropdown" ref={burgerMenuRef}>
+          <label tabIndex={0} className={`ml-1 btn btn-ghost "hover:bg-secondary`}>
+            <Bars3Icon className="h-1/2" />
+          </label>
+          <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+            {devLinks}
+          </ul>
+        </div>
       </div>
       <div className="navbar-end flex-grow mr-4">
         <RainbowKitCustomConnectButton />
