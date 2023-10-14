@@ -25,7 +25,7 @@ const PartnerCard = ({ id }: { id: [string, string, string] }) => {
       className="relative h-screen flex flex-col md:flex-row justify-center items-center z-10"
       style={{ scrollSnapType: "y mandatory", scrollSnapAlign: "center" }}
     >
-      <div className="relative w-[375px] h-[500px] m-5" ref={ref}>
+      <div className="relative w-[375px] h-[500px] m-5 rounded-xl overflow-clip" ref={ref}>
         <Image className="w-full h-full object-cover" src={id[0]} alt="NPO" width={768} height={1024} />
       </div>
       <motion.div
@@ -57,7 +57,7 @@ const Partners = () => {
       {partners.map((partnerData, i) => {
         return <PartnerCard key={i} id={partnerData} />;
       })}
-      <motion.div className="fixed left-0 right-0 h-5 bg-accent bottom-20 z-20" style={{ scaleX }} />
+      <motion.div className="fixed left-0 right-0 h-3 bg-secondary bottom-20 z-20" style={{ scaleX }} />
     </div>
   );
 };
