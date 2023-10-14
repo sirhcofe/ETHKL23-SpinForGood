@@ -37,6 +37,12 @@ export const Header = () => {
   const navLinks = (
     <>
       <li>
+        <NavLink href="/">
+          <GiftIcon className="h-4 w-4" />
+          Home
+        </NavLink>
+      </li>
+      <li>
         <NavLink href="/donate">
           <GiftIcon className="h-4 w-4" />
           Donate and Win
