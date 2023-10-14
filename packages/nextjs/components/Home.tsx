@@ -6,9 +6,10 @@
 //   );
 // };
 // export default Home;
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useLayoutEffect, useRef, useState } from "react";
+import Partners from "./Partners";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { color, useScroll, useTime, useTransform } from "framer-motion";
+import { color, motion, useScroll, useSpring, useTime, useTransform } from "framer-motion";
 import { degreesToRadians, mix, progress } from "popmotion";
 import * as THREE from "three";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
@@ -72,9 +73,12 @@ const Star = ({ p }: { p: number }) => {
   );
 };
 
-function Scene({ numStars = 100 }) {
+function Scene({ bgRef }: { bgRef: MutableRefObject<null> }) {
+  const numStars = 100;
   const gl = useThree(state => state.gl);
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress } = useScroll({
+    target: bgRef,
+  });
   const yAngle = useTransform(scrollYProgress, [0, 1], [0.001, degreesToRadians(180)]);
   const distance = useTransform(scrollYProgress, [0, 1], [10, 3]);
   const time = useTime();
@@ -101,31 +105,38 @@ function Scene({ numStars = 100 }) {
 }
 
 export default function Home() {
+  const bgRef = useRef(null);
+
   return (
-    <div className="h-[300vh]">
-      <div className="fixed w-full top-0 left-0 right-0 bottom-0">
-        <Canvas gl={{ antialias: false }}>
-          <Scene />
-        </Canvas>
+    <div>
+      <div ref={bgRef} className="fixed h-[300vh]">
+        <div className="fixed w-full h-full top-0 left-0 right-0">
+          <Canvas gl={{ antialias: false }}>
+            <Scene bgRef={bgRef} />
+          </Canvas>
+        </div>
       </div>
       <div className="flex flex-col w-full h-[100vh] items-center justify-center ">
-        <h1 className="text-9xl font-extrabold -mt-20 z-10">hello.</h1>
+        <h1 className="text-6xl md:text-9xl font-extrabold -mt-20 z-10">hello.</h1>
       </div>
       <div className="flex flex-col w-full h-[100vh] items-start justify-center">
-        <h1 className="text-9xl font-extrabold ml-32 -mt-20 z-10 text-[#009395]">Your</h1>
-        <h1 className="pb-5 text-9xl font-extrabold ml-32 z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#0000FF] to-[#009395]">
+        <h1 className="text-5xl md:text-9xl font-extrabold ml-5 md:ml-32 -mt-20 z-10 text-[#009395]">Your</h1>
+        <h1 className="pb-5 text-5xl md:text-9xl font-extrabold ml-5 md:ml-32 z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#0000FF] to-[#009395]">
           good deeds
         </h1>
       </div>
-      <div className="flex flex-col w-full h-[100vh] items-end justify-center">
-        <h1 className="text-9xl font-extrabold mr-40 z-10 text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-[#FF8C00]">
-          Awaits.
+      <div className="flex flex-col w-full h-[100vh] items-center md:items-end justify-center">
+        <h1 className="text-5xl md:text-9xl font-extrabold mr-5 md:mr-40 z-10 text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-[#FF8C00]">
+          Awaits!
+        </h1>
+        <div></div>
+      </div>
+      <div className="flex flex-col w-full h-[100vh] items-center justify-center">
+        <h1 className="text-5xl md:text-9xl w-[270px] md:w-fit py-2 md:py-5 flex items-center font-extrabold z-10 break-words text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-[#FF8C00]">
+          Who you are helping
         </h1>
       </div>
+      <Partners />
     </div>
   );
-}
-
-{
-  /* <Canvas gl={{ antialias: false }} style={{ imageRendering: "pixelated" }}> */
 }

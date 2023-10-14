@@ -20,8 +20,6 @@ const PartnerCard = ({ id }: { id: [string, string, string] }) => {
   const { scrollYProgress } = useScroll({ target: ref });
   const y = useParallax(scrollYProgress, 300);
 
-  console.log(id);
-
   return (
     <section
       className="relative h-screen flex flex-col md:flex-row justify-center items-center"
@@ -34,15 +32,20 @@ const PartnerCard = ({ id }: { id: [string, string, string] }) => {
         className="w-[90%] md:w-[400px] mx-5 space-y-3 p-5 rounded-xl bg-white bg-opacity-60 md:bg-transparent"
         style={{ y }}
       >
-        <h2 className="font-bold text-3xl text-cyan-800 md:text-white">{id[1]}</h2>
-        <h3 className="text-cyan-800 md:text-white">{id[2]}</h3>
+        <h2 className="font-extrabold text-4xl text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-red-600">
+          {id[1]}
+        </h2>
+        <h3 className="text-cyan-800">{id[2]}</h3>
       </motion.div>
     </section>
   );
 };
 
 const Partners = () => {
-  const { scrollYProgress } = useScroll();
+  const divRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: divRef,
+  });
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -50,7 +53,7 @@ const Partners = () => {
   });
 
   return (
-    <div className="w-full my-20">
+    <div ref={divRef} className="w-full">
       {partners.map((partnerData, i) => {
         return <PartnerCard key={i} id={partnerData} />;
       })}
