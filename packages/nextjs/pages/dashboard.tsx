@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { useInView, useMotionValue, useSpring } from "framer-motion";
+import { animate, useInView, useMotionValue, useSpring } from "framer-motion";
 // import ButtonMarquee from "~~/components/ButtonMarquee";
 // import CustomCountdown from "~~/components/CustomCountdown";
 // import ButtonMarquee from "~~/components/ButtonMarquee";
@@ -16,15 +16,13 @@ const CustomCountdown = dynamic(() => import("~~/components/CustomCountdown"));
 function Counter({ value, direction = "up" }: { value: number; direction?: "up" | "down" }) {
   const ref = useRef<HTMLSpanElement>(null);
   const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, {
-    damping: 100,
-    stiffness: 100,
-  });
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  useEffect(() => {
-    console.log("value", value);
-  }, []);
+  const springValue = useSpring(motionValue, {
+    damping: 200,
+    stiffness: 200,
+    duration: 3000,
+  });
+  const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
     if (isInView) {
@@ -35,8 +33,8 @@ function Counter({ value, direction = "up" }: { value: number; direction?: "up" 
   useEffect(
     () =>
       springValue.on("change", latest => {
+        console.log("BRUH", springValue.get());
         if (ref.current) {
-          // Format the number with 2 decimal places
           const formattedValue = new Intl.NumberFormat("en-US", {
             minimumFractionDigits: 6,
             maximumFractionDigits: 6,
@@ -133,8 +131,8 @@ export default function Home() {
           <CustomCountdown />
 
           <div className="w-full flex flex-col md:flex-row justify-center md:justify-between px-4 md:px-60">
-            <div className="flex flex-col min-w-[300px] lg:min-w-[500px] md:w-[45%] rounded-xl py-5 md:py-10 px-6 md:px-14 border-2 border-[#291334] space-y-10 justify-between">
-              <div className="w-full">
+            <div className="flex flex-col min-w-[300px] lg:min-w-[500px] md:w-[45%] h-fit space-y-10 justify-start">
+              <div className="w-full bg-primary rounded-xl py-5 md:py-8 px-6 md:px-14">
                 <h1 className="text-2xl md:text-4xl font-bold">Donation Pool:</h1>
                 {runCounter === true && (
                   <div className="flex space-x-2 items-end">
@@ -144,7 +142,7 @@ export default function Home() {
                 )}
               </div>
 
-              <div className="w-full">
+              <div className="w-full bg-secondary rounded-xl py-5 md:py-8 px-6 md:px-14">
                 <h1 className="text-2xl md:text-4xl font-bold">Prize Pool:</h1>
                 {runCounter === true && (
                   <div className="flex space-x-2 items-end">
