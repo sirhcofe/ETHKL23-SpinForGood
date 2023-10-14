@@ -14,7 +14,8 @@ import { degreesToRadians, mix, progress } from "popmotion";
 import * as THREE from "three";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 
-const colors = [0x00babb, 0x00fcff, 0x006e6f, 0x00dfe2];
+// const colors = [0x00babb, 0x00fcff, 0x006e6f, 0x00dfe2];
+const colors = [0xffd53e, 0xf0937c, 0xa26c7f, 0xee9fba];
 
 // const Icosahedron = () => (
 //   <mesh rotation-x={0.35}>
@@ -117,22 +118,23 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-col w-full h-[100vh] items-center justify-center ">
-        <h1 className="text-6xl md:text-9xl font-extrabold -mt-20 z-10">hello.</h1>
+        <h1 className="text-6xl md:text-9xl font-extrabold -mt-20 z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#4BB8BE] to-[#291334]">
+          Spin For Good
+        </h1>
       </div>
       <div className="flex flex-col w-full h-[100vh] items-start justify-center">
-        <h1 className="text-5xl md:text-9xl font-extrabold ml-5 md:ml-32 -mt-20 z-10 text-[#009395]">Your</h1>
-        <h1 className="pb-5 text-5xl md:text-9xl font-extrabold ml-5 md:ml-32 z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#0000FF] to-[#009395]">
+        <h1 className="text-5xl md:text-9xl font-extrabold ml-5 md:ml-32 -mt-20 z-10 text-[#DAA520]">Your</h1>
+        <h1 className="pb-5 text-5xl md:text-9xl font-extrabold ml-5 md:ml-32 z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#2c6d71] to-[#4bb8be]">
           good deeds
         </h1>
       </div>
-      <div className="flex flex-col w-full h-[100vh] items-center md:items-end justify-center">
-        <h1 className="text-5xl md:text-9xl font-extrabold mr-5 md:mr-40 z-10 text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-[#FF8C00]">
+      <div className="flex flex-col md:flex-row w-full h-[100vh] items-center justify-center md:justify-end">
+        <h1 className="text-5xl md:text-9xl font-extrabold mr-5 md:mr-40 z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#FB8C0B] to-[#FF6B6B]">
           Awaits!
         </h1>
-        <div></div>
       </div>
       <div className="flex flex-col w-full h-[100vh] items-center justify-center">
-        <h1 className="text-5xl md:text-9xl w-[270px] md:w-fit py-2 md:py-5 flex items-center font-extrabold z-10 break-words text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-[#FF8C00]">
+        <h1 className="text-5xl md:text-9xl w-[270px] md:w-fit py-2 md:py-5 flex items-center font-extrabold z-10 break-words text-transparent bg-clip-text bg-gradient-to-br from-[#4BB8BE] to-[#291334]">
           Who you are helping
         </h1>
       </div>
