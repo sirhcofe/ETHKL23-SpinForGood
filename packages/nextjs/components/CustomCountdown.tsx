@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 import ButtonMarquee from "./ButtonMarquee";
 import Roulette from "./Roulette";
+import { AnimatePresence } from "framer-motion";
 import Countdown from "react-countdown";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
-const Completionist = () => {
-  const router = useRouter();
-  return <Roulette />;
-};
+const DynamicWheel = dynamic(import("~~/components/Roulette"), {
+  ssr: false,
+});
 
 // Renderer callback with condition
 const renderer = ({ days, hours, minutes, seconds, completed }) => {
   if (completed) {
     // Render a completed state
-    return <Completionist />;
+    return <></>;
   } else {
     // Render a countdown
     return (
@@ -41,16 +41,28 @@ const renderer = ({ days, hours, minutes, seconds, completed }) => {
 };
 
 export default function CustomCountdown() {
+  const [date, setDate] = useState<Date | number>(new Date(1697353200000));
+  const [show, setShow] = useState(false);
+  const [key, setKey] = useState(0);
+
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "SFGContract",
     functionName: "endOfDuration",
   });
 
-  const [date, setDate] = useState<Date | number>(new Date(1697353200000));
   return (
     <div className="my-10 max-w-max flex flex-col justify-center items-center">
       <p className="text-3xl font-bold mb-6">To the next Roullete⏳</p>
-      <Countdown date={date} renderer={renderer} />
+      <Countdown
+        key={key}
+        date={date}
+        renderer={renderer}
+        onComplete={() => {
+          setShow(true);
+          setDate(new Date(1697353200000));
+          setKey(x => (x += 1));
+        }}
+      />
       <ButtonMarquee
         onClick={() => {
           writeAsync();
@@ -58,6 +70,7 @@ export default function CustomCountdown() {
         }}
         text="Now"
       />
+      <AnimatePresence>{show && <DynamicWheel setShow={setShow} />}</AnimatePresence>
     </div>
   );
 }
