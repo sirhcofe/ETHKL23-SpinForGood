@@ -22,7 +22,7 @@ const PartnerCard = ({ id }: { id: [string, string, string] }) => {
 
   return (
     <section
-      className="relative h-screen flex flex-col md:flex-row justify-center items-center"
+      className="relative h-screen flex flex-col md:flex-row justify-center items-center z-10"
       style={{ scrollSnapType: "y mandatory", scrollSnapAlign: "center" }}
     >
       <div className="relative w-[375px] h-[500px] m-5 overflow-hidden" ref={ref}>
@@ -35,7 +35,7 @@ const PartnerCard = ({ id }: { id: [string, string, string] }) => {
         <h2 className="font-extrabold text-4xl text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-red-600">
           {id[1]}
         </h2>
-        <h3 className="text-cyan-800">{id[2]}</h3>
+        <h3 className="text-[#bb892d] font-semibold text-md tracking-wide leading-relaxed">{id[2]}</h3>
       </motion.div>
     </section>
   );
@@ -57,7 +57,7 @@ const Partners = () => {
       {partners.map((partnerData, i) => {
         return <PartnerCard key={i} id={partnerData} />;
       })}
-      <motion.div className="fixed left-0 right-0 h-5 bg-accent bottom-20" style={{ scaleX }} />
+      <motion.div className="fixed left-0 right-0 h-5 bg-accent bottom-20 z-20" style={{ scaleX }} />
     </div>
   );
 };
