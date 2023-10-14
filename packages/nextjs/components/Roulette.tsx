@@ -65,7 +65,7 @@ export default function Roulette({ show, setShow }: RouletteProps) {
       const newDonors = qDonors.map(donor => {
         return {
           ...donor,
-          option: formattedAddress(donor.user),
+          option: donor.name === "Anonymous" ? formattedAddress(donor.user) : donor.name,
         };
       });
       newDonors.sort((a, b) => Number(b.amount - a.amount));

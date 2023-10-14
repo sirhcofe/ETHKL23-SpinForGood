@@ -86,7 +86,7 @@ export default function Home() {
       const newDonors = qDonors.map(donor => {
         return {
           ...donor,
-          option: formattedAddress(donor.user),
+          option: donor.name === "Anonymous" ? formattedAddress(donor.user) : donor.name,
         };
       });
       newDonors.sort((a, b) => Number(b.amount - a.amount));
@@ -162,6 +162,7 @@ export default function Home() {
                       <li key={i} className="flex justify-between bg-base-100 p-2 px-4 rounded-lg border border-black">
                         <p className="text-elipsis w-full truncate mr-4">
                           {data.name === "Anonymous" ? data.user : data.name}
+                          <span className="ml-2 opacity-50">{formattedAddress(data.user).toLocaleUpperCase()}</span>
                         </p>
                         <p>{Number(data.amount) / 10 ** 18}ETH</p>
                       </li>
@@ -183,6 +184,7 @@ export default function Home() {
                       <p className="text-elipsis w-full truncate mr-4">
                         {/* {data.name === "Anonymous" ? data.user : data.name} */}
                         {data.option}
+                        <span className="ml-2 opacity-50">{formattedAddress(data.ori).toLocaleUpperCase()}</span>
                       </p>
                     </li>
                   ))}
