@@ -2,17 +2,14 @@ import React, { useEffect, useState } from "react";
 import ButtonMarquee from "./ButtonMarquee";
 import { Wheel } from "react-custom-roulette";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-import { notification } from "~~/utils/scaffold-eth";
+import { formattedAddress } from "~~/utils/formatAddress";
 
-interface RoulleteProps {
-  donors: any[];
-  npos: any[];
-}
-
-export default function Roullete({ donors, npos }: RoulleteProps) {
+export default function Roulette() {
   const [spin, setSpin] = useState(false);
   const [NPOWinner, setNPOWinner] = useState(0);
   const [donorWinner, setDonorWinner] = useState(0);
+  const [donors, setDonors] = useState<any[]>([]);
+  const [npos, setNPOs] = useState<any[]>([]);
 
   const { data: qDonorWinner } = useScaffoldContractRead({
     contractName: "SFGContract",
@@ -24,21 +21,56 @@ export default function Roullete({ donors, npos }: RoulleteProps) {
     functionName: "lastNPOWinner",
   });
 
+  const { data: qDonors } = useScaffoldContractRead({
+    contractName: "SFGContract",
+    functionName: "getListOfDonors",
+  });
+
+  const { data: qNPOs } = useScaffoldContractRead({
+    contractName: "SFGContract",
+    functionName: "getListOfNPOs",
+  });
+
   useEffect(() => {
-    if (qDonorWinner) {
+    if (qDonors) {
+      const newDonors = qDonors.map(donor => {
+        return {
+          ...donor,
+          option: formattedAddress(donor.user),
+        };
+      });
+      newDonors.sort((a, b) => Number(b.amount - a.amount));
+      setDonors(newDonors);
+    }
+  }, [qDonors]);
+
+  useEffect(() => {
+    if (qNPOs) {
+      const newNPOs = qNPOs.map(npo => {
+        return {
+          ori: npo.addr,
+          option: npo.name,
+        };
+      });
+      setNPOs(newNPOs);
+    }
+  }, [qNPOs]);
+
+  useEffect(() => {
+    if (qDonorWinner && donors.length) {
       const index = donors.findIndex(ele => ele.user === qDonorWinner);
       // if (index === -1) notification.error("Winner can't be found");
       setDonorWinner(index);
     }
-  }, [qDonorWinner]);
+  }, [qDonorWinner, donors]);
 
   useEffect(() => {
-    if (qNPOWinner) {
+    if (qNPOWinner && npos.length) {
       const index = npos.findIndex(ele => ele.ori === qNPOWinner);
 
       setNPOWinner(index);
     }
-  }, [qNPOWinner]);
+  }, [qNPOWinner, npos]);
 
   return (
     <div className="py-10 flex flex-col justify-center items-center">
@@ -46,7 +78,7 @@ export default function Roullete({ donors, npos }: RoulleteProps) {
         <>
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="flex flex-col items-center">
-              <span>The Lucky Donor</span>
+              <span className="text-lg font-semibold">✨ Donor ✨</span>
               <Wheel
                 mustStartSpinning={spin}
                 prizeNumber={donorWinner} // the winning address
@@ -60,7 +92,7 @@ export default function Roullete({ donors, npos }: RoulleteProps) {
               />
             </div>
             <div className="flex flex-col items-center">
-              <span>The Lucky NPO</span>
+              <span className="text-lg font-semibold"> 🎉 NPO 🎉</span>
               <Wheel
                 mustStartSpinning={spin}
                 prizeNumber={NPOWinner} // the winning address
@@ -79,7 +111,7 @@ export default function Roullete({ donors, npos }: RoulleteProps) {
           <ButtonMarquee text="Spin" isLoading={spin} onClick={() => setSpin(true)} />
         </>
       ) : (
-        <></>
+        <p>Roulette cannot show without </p>
       )}
     </div>
   );
