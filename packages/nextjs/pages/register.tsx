@@ -27,7 +27,7 @@ export default function Register() {
       <div className="flex flex-col gap-4 items-center p-10 w-full max-w-[45rem] border-2 rounded-3xl border-black bg-base-100">
         {isSuccess ? (
           <>
-            <p className="font-bold text-3xl">🧡 Registration Complete! 🧡</p>
+            <p className="font-bold text-2xl lg:text-3xl text-center">🧡 Registration Complete! 🧡</p>
             <p className="font-bold text-lg text-center">
               Please allow us some time to process your documents.
               <br />

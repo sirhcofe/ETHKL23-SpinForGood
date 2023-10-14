@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Backdrop from "./Backdrop";
-import ButtonMarquee from "./ButtonMarquee";
 import { motion } from "framer-motion";
 import { Wheel } from "react-custom-roulette";
-import { useTimeout } from "usehooks-ts";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { formattedAddress } from "~~/utils/formatAddress";
 
@@ -167,7 +165,7 @@ export default function Roulette({ show, setShow }: RouletteProps) {
               {/* <ButtonMarquee text="Spin" isLoading={spin} onClick={() => setSpin(true)} /> */}
             </>
           ) : (
-            <p>Roulette cannot show without </p>
+            <p>Roulette is not ready now :c</p>
           )}
         </div>
         <button onClick={() => setShow(false)}>Close</button>

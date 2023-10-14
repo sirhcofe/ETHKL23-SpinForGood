@@ -32,7 +32,7 @@ const PartnerCard = ({ id }: { id: [string, string, string] }) => {
         className="w-[90%] md:w-[400px] mx-5 space-y-3 p-5 rounded-xl bg-white bg-opacity-90 md:bg-transparent"
         style={{ y }}
       >
-        <h2 className="font-extrabold text-4xl text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-red-600">
+        <h2 className="font-extrabold text-4xl text-transparent bg-clip-text bg-gradient-to-br from-orange-500 to-red-600">
           {id[1]}
         </h2>
         <h3 className="text-[#bb892d] md:font-semibold text-sm md:text-lg tracking-normal md:tracking-wide leading-tight md:leading-relaxed">
