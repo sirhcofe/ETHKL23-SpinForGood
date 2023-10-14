@@ -118,7 +118,7 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-col w-full h-[100vh] items-center justify-center ">
-        <h1 className="text-6xl md:text-9xl font-extrabold -mt-20 z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#4BB8BE] to-[#291334]">
+        <h1 className="text-6xl md:text-9xl w-[200px] md:w-full md:2-full text-center font-extrabold -mt-20 z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#4BB8BE] to-[#291334]">
           Spin For Good
         </h1>
       </div>
