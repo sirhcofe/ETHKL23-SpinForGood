@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Backdrop from "./Backdrop";
 import { motion } from "framer-motion";
+import ConfettiExplosion from "react-confetti-explosion";
 import { Wheel } from "react-custom-roulette";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { formattedAddress } from "~~/utils/formatAddress";
@@ -37,6 +38,7 @@ export default function Roulette({ show, setShow }: RouletteProps) {
   const [donors, setDonors] = useState<any[]>([]);
   const [npos, setNPOs] = useState<any[]>([]);
   const [isClient, setIsClient] = useState(false);
+  const [doneSpin, setDoneSpin] = useState(0);
 
   const { data: qDonorWinner } = useScaffoldContractRead({
     contractName: "SFGContract",
@@ -125,7 +127,8 @@ export default function Roulette({ show, setShow }: RouletteProps) {
         animate={"visible"}
         exit="exit"
       >
-        <div className="p-10 flex flex-col justify-center items-center bg-base-100 border-2 border-black rounded-3xl">
+        <div className="p-10 flex flex-col justify-center items-center bg-base-100 border-2 border-black rounded-3xl mb-20">
+          <p className="text-xl font-bold mb-2">The Lucky Ones are...</p>
           {donors?.length && npos?.length && isClient ? (
             <>
               <div className="flex flex-col lg:flex-row gap-10">
@@ -141,8 +144,11 @@ export default function Roulette({ show, setShow }: RouletteProps) {
                     radiusLineColor="#fff"
                     // perpendicularText={true}
                     textDistance={60}
+                    onStopSpinning={() => setDoneSpin(x => (x += 1))}
                   />
                 </div>
+
+                {doneSpin === 2 && <ConfettiExplosion zIndex={100} force={0.7} />}
                 <div className="flex flex-col items-center">
                   <span className="text-lg font-semibold"> 🎉 NPO 🎉</span>
                   <Wheel
@@ -155,10 +161,11 @@ export default function Roulette({ show, setShow }: RouletteProps) {
                     radiusLineColor="#fff"
                     // perpendicularText={true}
                     textDistance={60}
+                    onStopSpinning={() => setDoneSpin(x => (x += 1))}
                   />
                 </div>
               </div>
-              <button className="btn btn-secondary w-20" onClick={() => setShow(false)}>
+              <button className="btn btn-secondary w-20 mt-4" onClick={() => setShow(false)}>
                 Close
               </button>
 
@@ -168,7 +175,6 @@ export default function Roulette({ show, setShow }: RouletteProps) {
             <p>Roulette is not ready now :c</p>
           )}
         </div>
-        <button onClick={() => setShow(false)}>Close</button>
       </motion.div>
     </Backdrop>
   );
