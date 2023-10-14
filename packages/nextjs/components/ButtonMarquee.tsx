@@ -9,7 +9,7 @@ export default function ButtonMarquee({ isLoading = undefined, text, ...props }:
   return (
     <button
       className={`mt-10 btn btn-lg w-[200px] btn-primary overflow-hidden group`}
-      //   disabled={isLoading}
+      disabled={isLoading}
       //   onClick={() => onDonate()}
       {...props}
     >
