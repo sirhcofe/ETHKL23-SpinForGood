@@ -44,6 +44,7 @@ export default function Home() {
     if (qNPOs) {
       const newNPOs = qNPOs.map((npo, i) => {
         return {
+          ori: npo,
           option: formattedAddress(npo),
         };
       });
@@ -56,7 +57,7 @@ export default function Home() {
   return (
     <>
       {isClient ? (
-        <div className="flex-1 flex  flex-col justify-center items-center">
+        <div className="flex-1 flex  flex-col justify-center items-center px-4">
           <DynamicWheel donors={donors} npos={npos} />
           {/* <ButtonMarquee text="Start Routlette" /> */}
           <div className="rounded-xl p-10 max-w-4xl w-full bg-base-100 border-2 border-black">
@@ -66,7 +67,7 @@ export default function Home() {
                 <ul className="mt-4 flex flex-col gap-3">
                   {donors?.map((data, i) => (
                     <li key={i} className="bg-base-100 p-2 px-4 rounded-lg border border-black">
-                      {data.user}
+                      <p className="text-elipsis w-full truncate">{data.user}</p>
                     </li>
                   ))}
                 </ul>
