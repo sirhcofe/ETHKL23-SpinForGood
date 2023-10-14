@@ -1,15 +1,16 @@
 import React, { useCallback, useState } from "react";
+import ButtonMarquee from "~~/components/ButtonMarquee";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
 
 export default function Donate() {
   const [donateVal, setDonateVal] = useState(0.001);
 
-  const adjustDonateVal = (val: number) => {
-    const res = donateVal + val;
-    if (res > 0) setDonateVal(parseFloat(res.toFixed(5)));
-    // else notification.warning("")
-  };
+  // const adjustDonateVal = (val: number) => {
+  //   const res = donateVal + val;
+  //   if (res > 0) setDonateVal(parseFloat(res.toFixed(5)));
+  //   // else notification.warning("")
+  // };
 
   const multiplyBy1e18 = useCallback(value => {
     if (!value) {
@@ -37,7 +38,7 @@ export default function Donate() {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center h-full flex-1">
+      <div className="flex flex-col justify-center items-center h-full flex-1 py-10">
         <div className="flex flex-col gap-4 items-center p-10 w-[45rem] border-2 rounded-3xl border-black bg-base-100">
           {isSuccess ? (
             <>
@@ -122,17 +123,7 @@ export default function Donate() {
                   </button>
                 </div>
               </div> */}
-              <button
-                className={`mt-10 btn btn-lg w-[200px] btn-primary overflow-hidden group`}
-                disabled={isLoading}
-                onClick={() => onDonate()}
-              >
-                <span className={isLoading ? "loading loading-spinner" : ""}></span>
-                <span className=" text-black font-bold group-hover:hidden ">Donate</span>
-                <span className="hidden marquee-text text-black font-bold group-hover:block group-hover:animate-marquee">
-                  Donate
-                </span>
-              </button>
+              <ButtonMarquee isLoading={isLoading} disabled={isLoading} onClick={() => onDonate()} text="Donate" />
             </>
           )}
         </div>
