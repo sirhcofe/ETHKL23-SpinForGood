@@ -1,19 +1,20 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import ButtonMarquee from "~~/components/ButtonMarquee";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
 
 export default function Donate() {
   const [donateVal, setDonateVal] = useState(0.001);
+  const [donate, setDonate] = useState(true);
   const [name, setName] = useState("Anonymous");
+  const router = useRouter();
 
-  // const adjustDonateVal = (val: number) => {
-  //   const res = donateVal + val;
-  //   if (res > 0) setDonateVal(parseFloat(res.toFixed(5)));
-  //   // else notification.warning("")
-  // };
+  useEffect(() => {
+    if (donate === false) setDonate(true);
+  }, [router.asPath]);
 
-  const multiplyBy1e18 = useCallback(value => {
+  const multiplyBy1e18 = useCallback((value: any) => {
     if (!value) {
       return;
     }
@@ -27,7 +28,7 @@ export default function Donate() {
     contractName: "SFGContract",
     functionName: "donate",
     value: multiplyBy1e18(donateVal),
-    args: [name],
+    args: [name === "" ? "Anonymous" : name],
   });
 
   const onDonate = () => {
@@ -38,13 +39,20 @@ export default function Donate() {
     }
   };
 
+  useEffect(() => {
+    setDonate(false);
+  }, [isSuccess]);
+
   return (
     <>
       <div className="flex flex-col justify-center items-center h-full flex-1 py-10">
         <div className="flex flex-col gap-4 items-center py-8 px-4 md:p-10 w-full max-w-[45rem] border-2 rounded-3xl border-black bg-base-100">
-          {isSuccess ? (
+          {!donate && isSuccess ? (
             <>
-              <p className="font-bold text-3xl">🧡 Thank you for your donation🧡</p>
+              <p className="font-bold text-2xl lg:text-3xl text-center">🧡 Thank you for your donation 🧡</p>
+              <button className="btn btn-primary mt-6" onClick={() => setDonate(true)}>
+                Donate Again
+              </button>
             </>
           ) : (
             <>
@@ -67,13 +75,14 @@ export default function Donate() {
               </div>
 
               <div className="my-2 w-auto flex flex-col">
-                <label className="ml-3 font-bold" htmlFor="name">Name</label>
-                <p className="ml-3">Leave empty to stay Anonymous</p>
+                <label className="ml-3 font-bold" htmlFor="name">
+                  Name
+                </label>
                 <div className="mt-1 flex items-center input input-bordered bg-base-100 w-[360px]">
                   <input
-                    className="w-full ml-2 font-bold text-xl bg-base-100"
+                    className="w-full ml-2 bg-base-100 "
                     type="text"
-                    placeholder="Anonymous"
+                    placeholder="Leave empty to stay Anonymous"
                     onChange={e => setName(e.currentTarget.value)}
                   />
                 </div>
@@ -87,51 +96,13 @@ export default function Donate() {
                     type="number"
                     value={donateVal}
                     onChange={e => setDonateVal(parseFloat(e.currentTarget.value))}
-                    
                   />
                 </div>
-                <span className="ml-3 mt-2 text-accent">{`ETH${(donateVal * 0.75).toFixed(5)} into Donation Pool`}</span>
+                <span className="ml-3 mt-2 text-accent">{`ETH${(donateVal * 0.75).toFixed(
+                  5,
+                )} into Donation Pool`}</span>
                 <span className="ml-3  text-primary">{`ETH${(donateVal * 0.25).toFixed(5)} into Prize Pool`}</span>
               </div>
-              {/* 
-              <div className="flex justify-center items-center gap-2">
-                <div className="flex flex-col gap-2">
-                  <button
-                    className="btn btn-outline btn-secondary"
-                    disabled={donateVal <= 0.1}
-                    onClick={() => adjustDonateVal(-0.1)}
-                  >
-                    - 0.1
-                  </button>
-                  <button
-                    className="btn btn-outline btn-secondary"
-                    disabled={donateVal <= 0.01}
-                    onClick={() => adjustDonateVal(-0.01)}
-                  >
-                    - 0.01
-                  </button>
-                  <button
-                    className="btn btn-outline btn-secondary"
-                    disabled={donateVal <= 0.001}
-                    onClick={() => adjustDonateVal(-0.001)}
-                  >
-                    - 0.001
-                  </button>
-                </div>
-                <div className="divider divider-horizontal"></div>
-
-                <div className="flex flex-col gap-2">
-                  <button className="btn btn-outline btn-accent" onClick={() => adjustDonateVal(0.1)}>
-                    + 0.1
-                  </button>
-                  <button className="btn btn-outline btn-accent" onClick={() => adjustDonateVal(0.01)}>
-                    + 0.01
-                  </button>
-                  <button className="btn btn-outline btn-accent" onClick={() => adjustDonateVal(0.001)}>
-                    + 0.001
-                  </button>
-                </div>
-              </div> */}
               <ButtonMarquee isLoading={isLoading} disabled={isLoading} onClick={() => onDonate()} text="Donate" />
             </>
           )}

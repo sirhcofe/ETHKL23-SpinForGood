@@ -7,7 +7,7 @@ module.exports = {
   daisyui: {
     themes: [
       "cupcake",
-      "forest",
+      "dracula",
       {
         scaffoldEth: {
           primary: "#93BBFB",

@@ -112,19 +112,20 @@ export default function Home() {
     <div>
       <div ref={bgRef} className="fixed h-[300vh]">
         <div className="fixed w-full h-full top-0 left-0 right-0">
-          <Canvas gl={{ antialias: false }}>
+          <Canvas gl={{ antialias: false }} style={{ imageRendering: "pixelated" }}>
             <Scene bgRef={bgRef} />
           </Canvas>
         </div>
       </div>
       <div className="flex flex-col w-full h-[100vh] items-center justify-center ">
-        <h1 className="text-6xl md:text-9xl font-extrabold -mt-20 z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#4BB8BE] to-[#291334]">
+        {/* <h1 className="text-6xl md:text-9xl w-[200px] md:w-full md:2-full text-center font-extrabold -mt-20 z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#4BB8BE] to-[#291334]"> */}
+        <h1 className="text-6xl md:text-9xl w-[200px] md:w-full md:2-full text-center font-extrabold -mt-20 z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#FB8C0B] to-[#FF6B6B]">
           Spin For Good
         </h1>
       </div>
       <div className="flex flex-col w-full h-[100vh] items-start justify-center">
-        <h1 className="text-5xl md:text-9xl font-extrabold ml-5 md:ml-32 -mt-20 z-10 text-[#DAA520]">Your</h1>
-        <h1 className="pb-5 text-5xl md:text-9xl font-extrabold ml-5 md:ml-32 z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#2c6d71] to-[#4bb8be]">
+        <h1 className="text-5xl md:text-9xl font-extrabold ml-5 md:ml-32 -mt-20 z-10 text-accent">Your</h1>
+        <h1 className="pb-5 text-5xl md:text-9xl font-extrabold ml-5 md:ml-32 z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#b0c77c] to-[#6be6c5]">
           good deeds
         </h1>
       </div>
@@ -134,8 +135,8 @@ export default function Home() {
         </h1>
       </div>
       <div className="flex flex-col w-full h-[100vh] items-center justify-center">
-        <h1 className="text-5xl md:text-9xl w-[270px] md:w-fit py-2 md:py-5 flex items-center font-extrabold z-10 break-words text-transparent bg-clip-text bg-gradient-to-br from-[#4BB8BE] to-[#291334]">
-          Who you are helping
+        <h1 className="text-5xl md:text-9xl w-[270px] md:w-fit py-2 md:py-5 flex items-center font-extrabold z-10 break-words text-transparent bg-clip-text bg-gradient-to-br from-[#b0c77c] to-[#6be6c5]">
+          You are helping
         </h1>
       </div>
       <Partners />
