@@ -41,7 +41,7 @@ const renderer = ({ days, hours, minutes, seconds, completed }) => {
 };
 
 export default function CustomCountdown() {
-  const [date, setDate] = useState<Date | number>(new Date(1697353200000));
+  const [date, setDate] = useState<Date | number>(new Date(1697464236000));
   const [show, setShow] = useState(false);
   const [key, setKey] = useState(0);
 

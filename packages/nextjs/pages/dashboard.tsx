@@ -82,6 +82,7 @@ export default function Home() {
   });
 
   useEffect(() => {
+    console.log("USE 1");
     if (qDonors) {
       const newDonors = qDonors.map(donor => {
         return {
@@ -95,12 +96,14 @@ export default function Home() {
   }, [qDonors]);
 
   useEffect(() => {
+    console.log("USE 5");
     if (prizePool !== 0 && donationPool !== 0) {
       setRunCounter(true);
     }
   }, [prizePool, donationPool]);
 
   useEffect(() => {
+    console.log("USE 2");
     if (qNPOs) {
       const newNPOs = qNPOs.map(npo => {
         return {
@@ -113,12 +116,14 @@ export default function Home() {
   }, [qNPOs]);
 
   useEffect(() => {
+    console.log("USE 3");
     if (qPrizePool) {
       setPrizePool(Number(qPrizePool) / 10 ** 18);
     }
   }, [qPrizePool]);
 
   useEffect(() => {
+    console.log("USE 4");
     if (qDonationPool) {
       setDonationPool(Number(qDonationPool) / 10 ** 18);
     }
@@ -134,9 +139,14 @@ export default function Home() {
             <div className="flex flex-col min-w-[300px] lg:min-w-[500px] md:w-[45%] h-fit space-y-10 justify-start">
               <div className="w-full bg-primary rounded-xl py-5 md:py-8 px-6 md:px-14">
                 <h1 className="text-2xl md:text-4xl font-bold">Donation Pool:</h1>
-                {runCounter === true && (
+                {runCounter === true ? (
                   <div className="flex space-x-2 items-end">
                     <Counter value={donationPool} />
+                    <p className="text-3xl md:text-5xl font-bold">ETH</p>
+                  </div>
+                ) : (
+                  <div className="flex space-x-2 items-end">
+                    <p className="text-3xl md:text-6xl font-bold">0</p>
                     <p className="text-3xl md:text-5xl font-bold">ETH</p>
                   </div>
                 )}
@@ -144,9 +154,14 @@ export default function Home() {
 
               <div className="w-full bg-secondary rounded-xl py-5 md:py-8 px-6 md:px-14">
                 <h1 className="text-2xl md:text-4xl font-bold">Prize Pool:</h1>
-                {runCounter === true && (
+                {runCounter === true ? (
                   <div className="flex space-x-2 items-end">
                     <Counter value={prizePool} />
+                    <p className="text-3xl md:text-5xl font-bold">ETH</p>
+                  </div>
+                ) : (
+                  <div className="flex space-x-2 items-end">
+                    <p className="text-3xl md:text-6xl font-bold">0</p>
                     <p className="text-3xl md:text-5xl font-bold">ETH</p>
                   </div>
                 )}
