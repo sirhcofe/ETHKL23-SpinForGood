@@ -95,12 +95,6 @@ export default function Home() {
   }, [qDonors]);
 
   useEffect(() => {
-    if (prizePool !== 0 && donationPool !== 0) {
-      setRunCounter(true);
-    }
-  }, [prizePool, donationPool]);
-
-  useEffect(() => {
     if (qNPOs) {
       const newNPOs = qNPOs.map(npo => {
         return {
@@ -111,6 +105,12 @@ export default function Home() {
       setNPOs(newNPOs);
     }
   }, [qNPOs]);
+
+  useEffect(() => {
+    if (prizePool !== 0 && donationPool !== 0) {
+      setRunCounter(true);
+    }
+  }, [prizePool, donationPool]);
 
   useEffect(() => {
     if (qPrizePool) {
@@ -127,57 +127,73 @@ export default function Home() {
   return (
     <>
       {isClient ? (
-        <div className="flex-1 flex-col flex items-center justify-center">
+        <div className="flex-1 flex-col flex items-center justify-center mx-4">
           <CustomCountdown />
 
-          <div className="w-full flex flex-col md:flex-row justify-center md:justify-between px-4 md:px-60">
-            <div className="flex flex-col min-w-[300px] lg:min-w-[500px] md:w-[45%] h-fit space-y-10 justify-start">
-              <div className="w-full bg-primary rounded-xl py-5 md:py-8 px-6 md:px-14">
+          <div className="w-full flex flex-col 2xl:flex-row justify-center items-center 2xl:items-start md:justify-between 2xl:px-60">
+            <div className="flex flex-col w-full 2xl:w-[45%] h-fit space-y-10 items-center justify-start">
+              <div className="w-full max-w-[640px] bg-primary rounded-xl py-5 md:py-8 px-6 md:px-14">
                 <h1 className="text-2xl md:text-4xl font-bold">Donation Pool:</h1>
-                {runCounter === true && (
+                {runCounter === true ? (
                   <div className="flex space-x-2 items-end">
                     <Counter value={donationPool} />
                     <p className="text-3xl md:text-5xl font-bold">ETH</p>
                   </div>
+                ) : (
+                  <div className="flex space-x-2 items-end">
+                    <p className="text-3xl md:text-6xl font-bold">0</p>
+                    <p className="text-3xl md:text-5xl font-bold">ETH</p>
+                  </div>
                 )}
               </div>
 
-              <div className="w-full bg-secondary rounded-xl py-5 md:py-8 px-6 md:px-14">
+              <div className="w-full max-w-[640px] bg-secondary rounded-xl py-5 md:py-8 px-6 md:px-14">
                 <h1 className="text-2xl md:text-4xl font-bold">Prize Pool:</h1>
-                {runCounter === true && (
+                {runCounter === true ? (
                   <div className="flex space-x-2 items-end">
                     <Counter value={prizePool} />
+                    <p className="text-3xl md:text-5xl font-bold">ETH</p>
+                  </div>
+                ) : (
+                  <div className="flex space-x-2 items-end">
+                    <p className="text-3xl md:text-6xl font-bold">0</p>
                     <p className="text-3xl md:text-5xl font-bold">ETH</p>
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="rounded-xl p-6 md:px-10 md:py-8 max-w-4xl w-full ">
+            <div className="rounded-xl border-2 border-primary mt-8 2xl:mt-0 2xl:min-h-[384px] py-8 px-6 md:px-14 w-full 2xl:w-[45%] flex flex-col max-w-[640px]">
               {donors.length ? (
                 <>
-                  <p className="font-bold text-3xl">Top Donaters</p>
+                  <p className="font-bold text-2xl md:text-3xl">Top Donaters:</p>
                   <ul className="mt-4 flex flex-col gap-3">
-                    {donors?.map((data, i) => (
-                      <li key={i} className="flex justify-between bg-base-100 p-2 px-4 rounded-lg border border-black">
-                        <p className="text-elipsis w-full truncate mr-4">
-                          {data.name === "Anonymous" ? data.user : data.name}
-                          <span className="ml-2 opacity-50">{formattedAddress(data.user).toLocaleUpperCase()}</span>
-                        </p>
-                        <p>{Number(data.amount) / 10 ** 18}ETH</p>
-                      </li>
-                    ))}
+                    {donors?.map((data, i) => {
+                      console.log("bruh", i, data.user);
+                      return (
+                        <li
+                          key={i}
+                          className="flex justify-between bg-base-100 p-2 px-4 rounded-lg border border-black"
+                        >
+                          <p className="text-elipsis w-full truncate mr-4">
+                            {data.name === "Anonymous" ? data.user : data.name}
+                            <span className="ml-2 opacity-50">{formattedAddress(data.user).toLocaleUpperCase()}</span>
+                          </p>
+                          <p>{Number(data.amount) / 10 ** 18}ETH</p>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </>
               ) : (
-                <p className="font-bold text-3xl">No one donated 😢</p>
+                <p className="font-bold text-2xl md:text-4xl">No one donated 😢</p>
               )}
             </div>
           </div>
-          <div className="rounded-xl p-6 mt-6 md:px-10 md:py-8 max-w-4xl w-full ">
+          <div className="rounded-xl border-2 border-secondary mt-8 py-8 px-6 md:px-14 w-full 2xl:w-[45%] flex flex-col max-w-[640px]">
             {npos.length ? (
               <>
-                <p className="font-bold text-3xl">Eligible NPOs</p>
+                <p className="font-bold text-2xl md:text-3xl">Eligible NPOs</p>
                 <ul className="mt-4 flex flex-col gap-3">
                   {npos?.map((data, i) => (
                     <li key={i} className="flex justify-between bg-base-100 p-2 px-4 rounded-lg border border-black">
@@ -191,7 +207,7 @@ export default function Home() {
                 </ul>
               </>
             ) : (
-              <p className="font-bold text-3xl">No NPOs registered</p>
+              <p className="font-bold text-2xl md:text-4xl">No NPOs registered</p>
             )}
           </div>
         </div>

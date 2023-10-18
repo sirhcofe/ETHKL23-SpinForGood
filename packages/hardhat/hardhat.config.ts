@@ -125,6 +125,11 @@ const config: HardhatUserConfig = {
       apiKey: `${etherscanApiKey}`,
     },
   },
+  etherscan: {
+    apiKey: {
+      sepolia: `${etherscanApiKey}`
+    }
+  }
 };
 
 export default config;
