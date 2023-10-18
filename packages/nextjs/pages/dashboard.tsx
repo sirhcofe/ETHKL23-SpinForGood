@@ -82,7 +82,6 @@ export default function Home() {
   });
 
   useEffect(() => {
-    console.log("USE 1");
     if (qDonors) {
       const newDonors = qDonors.map(donor => {
         return {
@@ -96,14 +95,6 @@ export default function Home() {
   }, [qDonors]);
 
   useEffect(() => {
-    console.log("USE 5");
-    if (prizePool !== 0 && donationPool !== 0) {
-      setRunCounter(true);
-    }
-  }, [prizePool, donationPool]);
-
-  useEffect(() => {
-    console.log("USE 2");
     if (qNPOs) {
       const newNPOs = qNPOs.map(npo => {
         return {
@@ -116,14 +107,18 @@ export default function Home() {
   }, [qNPOs]);
 
   useEffect(() => {
-    console.log("USE 3");
+    if (prizePool !== 0 && donationPool !== 0) {
+      setRunCounter(true);
+    }
+  }, [prizePool, donationPool]);
+
+  useEffect(() => {
     if (qPrizePool) {
       setPrizePool(Number(qPrizePool) / 10 ** 18);
     }
   }, [qPrizePool]);
 
   useEffect(() => {
-    console.log("USE 4");
     if (qDonationPool) {
       setDonationPool(Number(qDonationPool) / 10 ** 18);
     }
@@ -195,7 +190,7 @@ export default function Home() {
               )}
             </div>
           </div>
-          <div className="rounded-xl border-2 border-secondary mt-8 py-8 px-6 md:px-14 w-full 2xl:w-[45%] flex max-w-[640px]">
+          <div className="rounded-xl border-2 border-secondary mt-8 py-8 px-6 md:px-14 w-full 2xl:w-[45%] flex flex-col max-w-[640px]">
             {npos.length ? (
               <>
                 <p className="font-bold text-2xl md:text-3xl">Eligible NPOs</p>
