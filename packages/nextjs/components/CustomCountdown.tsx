@@ -4,6 +4,7 @@ import ButtonMarquee from "./ButtonMarquee";
 import Roulette from "./Roulette";
 import { AnimatePresence } from "framer-motion";
 import Countdown from "react-countdown";
+import { useAccount } from "wagmi";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 const DynamicWheel = dynamic(import("~~/components/Roulette"), {
@@ -45,6 +46,8 @@ export default function CustomCountdown() {
   const [show, setShow] = useState(false);
   const [key, setKey] = useState(0);
 
+  const { address } = useAccount();
+
   const { writeAsync } = useScaffoldContractWrite({
     contractName: "SFGContract",
     functionName: "endOfDuration",
@@ -53,23 +56,27 @@ export default function CustomCountdown() {
   return (
     <div className="my-10 mb-14 max-w-max flex flex-col justify-center items-center">
       <p className="text-3xl font-bold mb-6">To the next Roulette⏳</p>
+      {}
       <Countdown
         key={key}
         date={date}
         renderer={renderer}
         onComplete={() => {
           setShow(true);
-          setDate(new Date(1697353200000));
+          setDate(new Date(1697709600000));
           setKey(x => (x += 1));
         }}
       />
-      {/* <ButtonMarquee
-        onClick={() => {
-          writeAsync();
-          setDate(Date.now() + 3000);
-        }}
-        text="Now"
-      /> */}
+      {address === "0x769d511712414782c5F6941292959BD83b4b0210" && (
+        <ButtonMarquee
+          onClick={() => {
+            writeAsync();
+            setDate(Date.now() + 3000);
+          }}
+          text="Now"
+        />
+      )}
+
       <AnimatePresence>{show && <DynamicWheel setShow={setShow} />}</AnimatePresence>
     </div>
   );
