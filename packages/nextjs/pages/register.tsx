@@ -38,8 +38,8 @@ export default function Register() {
           setIsNPO(true);
         }
       });
-      setShowWindow(true);
     }
+    setShowWindow(true);
   }, [qNPOs]);
 
   return (

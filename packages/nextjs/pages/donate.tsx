@@ -55,8 +55,8 @@ export default function Donate() {
           setIsNPO(true);
         }
       });
-      setShowWindow(true);
     }
+    setShowWindow(true);
   }, [qNPOs]);
 
   useEffect(() => {
