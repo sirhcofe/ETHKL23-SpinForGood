@@ -1,4 +1,5 @@
-import { hardhat } from "wagmi/chains";
+import { SepoliaFaucet } from "./SepoliaFaucet";
+import { hardhat, sepolia } from "wagmi/chains";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { SwitchTheme } from "~~/components/SwitchTheme";
@@ -24,6 +25,8 @@ export const Footer = () => {
               </div>
             )}
             {getTargetNetwork().id === hardhat.id && <Faucet />}
+            {/* {getTargetNetwork().id === sepolia.id && <SepoliaFaucet />} */}
+            <SepoliaFaucet />
           </div>
           <SwitchTheme className="pointer-events-auto" />
         </div>
