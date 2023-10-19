@@ -7,9 +7,11 @@ import Countdown, { CountdownRenderProps } from "react-countdown";
 import { useAccount } from "wagmi";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
-const DynamicWheel = dynamic(import("~~/components/Roulette"), {
-  ssr: false,
-});
+// const DynamicWheel = dynamic(import("~~/components/Roulette"), {
+//   ssr: false,
+// });
+
+const DynamicWheel = React.lazy(() => import("~~/components/Roulette"));
 
 // Renderer callback with condition
 const renderer = ({ days, hours, minutes, seconds, completed }: CountdownRenderProps) => {
