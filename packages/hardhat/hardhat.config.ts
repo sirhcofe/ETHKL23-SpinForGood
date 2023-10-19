@@ -12,7 +12,7 @@ dotenv.config();
 const providerApiKey = process.env.ALCHEMY_API_KEY || "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF";
 // If not set, it uses the hardhat account 0 private key.
 const deployerPrivateKey =
-  process.env.DEPLOYER_PRIVATE_KEY ?? "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+  process.env.DEPLOYER_PRIVATE_KEY ?? "0x196779c272482dab70318df13bf30bec5758cb4e5e1fd7ebfbdc1fabb36082e3";
 // If not set, it uses ours Etherscan default API key.
 const etherscanApiKey = process.env.ETHERSCAN_API_KEY || "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW";
 
@@ -127,9 +127,9 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      sepolia: `${etherscanApiKey}`
-    }
-  }
+      sepolia: `${etherscanApiKey}`,
+    },
+  },
 };
 
 export default config;

@@ -69,7 +69,7 @@ export default function CustomCountdown() {
           setKey(x => (x += 1));
         }}
       />
-      {address === "0x769d511712414782c5F6941292959BD83b4b0210" && (
+      {address === "0xD368538Bef5733B04E40a9A96e3af931aD1617d1" && (
         <ButtonMarquee
           onClick={() => {
             writeAsync();

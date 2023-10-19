@@ -34,9 +34,14 @@ contract SFGContract {
 		lastUserWinner = owner;
 	}
 
-	function strEqual(string memory str1, string memory str2) private pure returns (bool) {
+	function strEqual(
+		string memory str1,
+		string memory str2
+	) private pure returns (bool) {
 		// check if two strings are equal by comparing there hash
-		return keccak256(abi.encodePacked((str1))) == keccak256(abi.encodePacked((str2)));
+		return
+			keccak256(abi.encodePacked((str1))) ==
+			keccak256(abi.encodePacked((str2)));
 	}
 
 	function combineNames(
@@ -47,28 +52,30 @@ contract SFGContract {
 		bytes memory byteArr1 = bytes(a);
 		bytes memory byteArr2 = bytes(b);
 		bytes memory separatorBytes = bytes(separator);
-		uint totalLength = byteArr1.length + byteArr2.length + separatorBytes.length;
+		uint totalLength = byteArr1.length +
+			byteArr2.length +
+			separatorBytes.length;
 
 		bytes memory result = new bytes(totalLength);
-        // Loop through the first input string and copy its bytes to the result array
-        uint i;
-        uint j = 0;
-        for (i = 0; i < byteArr1.length; i++) {
-            result[j++] = byteArr1[i];
-        }
+		// Loop through the first input string and copy its bytes to the result array
+		uint i;
+		uint j = 0;
+		for (i = 0; i < byteArr1.length; i++) {
+			result[j++] = byteArr1[i];
+		}
 
 		// Insert the separator string into the result byte array
 		for (i = 0; i < separatorBytes.length; i++) {
 			result[j++] = separatorBytes[i];
 		}
 
-        // Loop through the second input string and copy its bytes to the result array
-        for (i = 0; i < byteArr2.length; i++) {
-            result[j++] = byteArr2[i];
-        }
+		// Loop through the second input string and copy its bytes to the result array
+		for (i = 0; i < byteArr2.length; i++) {
+			result[j++] = byteArr2[i];
+		}
 
-        // Convert the result byte array back to a string and return it
-        return string(result);
+		// Convert the result byte array back to a string and return it
+		return string(result);
 	}
 
 	function addDonationRecord(string memory _name) private {
@@ -85,14 +92,19 @@ contract SFGContract {
 			donations[i].timestamp = block.timestamp;
 
 			// if prev donation name was anonymous
-			if (bytes(donations[i].name).length == 0 || strEqual(donations[i].name, "Anonymous")) {
+			if (
+				bytes(donations[i].name).length == 0 ||
+				strEqual(donations[i].name, "Anonymous")
+			) {
 				donations[i].name = _name;
 			} else if (!strEqual(_name, "Anonymous")) {
 				donations[i].name = combineNames(donations[i].name, _name, "/");
 			}
 		} else {
 			// if first donation then just push a new donation record
-			donations.push(Donation(msg.sender, _name, msg.value, block.timestamp));
+			donations.push(
+				Donation(msg.sender, _name, msg.value, block.timestamp)
+			);
 		}
 	}
 
@@ -118,6 +130,7 @@ contract SFGContract {
 
 	function endOfDuration() external {
 		require(registeredNPOs.length > 0, "No registered NPOs.");
+		require(msg.sender == owner, "Not the owner!");
 
 		// get random NPO winner
 		uint256 NPOwinnerIndex = getRandomWinnerIndex(registeredNPOs.length);
