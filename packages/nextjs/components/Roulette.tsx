@@ -29,7 +29,7 @@ const dropIn = {
 
 interface RouletteProps {
   show?: boolean;
-  setShow: (boolean) => void;
+  setShow: (show: boolean) => void;
 }
 export default function Roulette({ show, setShow }: RouletteProps) {
   const [spin, setSpin] = useState(false);
@@ -62,20 +62,20 @@ export default function Roulette({ show, setShow }: RouletteProps) {
 
   useEffect(() => {
     if (qDonors) {
-      const newDonors = qDonors.map(donor => {
+      const newDonors = qDonors.map((donor: any) => {
         return {
           ...donor,
           option: donor.name === "Anonymous" ? formattedAddress(donor.user) : donor.name,
         };
       });
-      newDonors.sort((a, b) => Number(b.amount - a.amount));
+      newDonors.sort((a: any, b: any) => Number(b.amount - a.amount));
       setDonors(newDonors);
     }
   }, [qDonors]);
 
   useEffect(() => {
     if (qNPOs) {
-      const newNPOs = qNPOs.map(npo => {
+      const newNPOs = qNPOs.map((npo: any) => {
         return {
           ori: npo.addr,
           option: npo.name,
@@ -114,10 +114,12 @@ export default function Roulette({ show, setShow }: RouletteProps) {
     return () => clearTimeout(timeout);
   }, []);
 
-  if (typeof window === "undefined") return <></>;
+  //   if (typeof window === "undefined") return <></>;
+
+  if (isClient === false) return null;
 
   return (
-    <Backdrop show={show} onClick={() => setShow(false)}>
+    <Backdrop onClick={() => setShow(false)}>
       <motion.div
         onClick={e => e.stopPropagation()}
         className="mx-4"

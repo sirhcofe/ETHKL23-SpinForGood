@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import ButtonMarquee from "./ButtonMarquee";
-import Roulette from "./Roulette";
+// import Roulette from "./Roulette";
 import { AnimatePresence } from "framer-motion";
-import Countdown from "react-countdown";
+import Countdown, { CountdownRenderProps } from "react-countdown";
 import { useAccount } from "wagmi";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
@@ -12,7 +12,7 @@ const DynamicWheel = dynamic(import("~~/components/Roulette"), {
 });
 
 // Renderer callback with condition
-const renderer = ({ days, hours, minutes, seconds, completed }) => {
+const renderer = ({ days, hours, minutes, seconds, completed }: CountdownRenderProps) => {
   if (completed) {
     // Render a completed state
     return <></>;

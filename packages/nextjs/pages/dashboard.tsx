@@ -83,20 +83,20 @@ export default function Home() {
 
   useEffect(() => {
     if (qDonors) {
-      const newDonors = qDonors.map(donor => {
+      const newDonors = qDonors.map((donor: any) => {
         return {
           ...donor,
           option: donor.name === "Anonymous" ? formattedAddress(donor.user) : donor.name,
         };
       });
-      newDonors.sort((a, b) => Number(b.amount - a.amount));
+      newDonors.sort((a: any, b: any) => Number(b.amount - a.amount));
       setDonors(newDonors);
     }
   }, [qDonors]);
 
   useEffect(() => {
     if (qNPOs) {
-      const newNPOs = qNPOs.map(npo => {
+      const newNPOs = qNPOs.map((npo: any) => {
         return {
           ori: npo.addr,
           option: npo.name,

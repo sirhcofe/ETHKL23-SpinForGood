@@ -33,7 +33,7 @@ export default function Register() {
 
   useEffect(() => {
     if (qNPOs) {
-      qNPOs.map(npo => {
+      qNPOs.map((npo: any) => {
         if (address === npo.addr) {
           setIsNPO(true);
         }

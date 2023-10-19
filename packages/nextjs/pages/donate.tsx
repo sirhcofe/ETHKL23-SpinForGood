@@ -50,7 +50,7 @@ export default function Donate() {
 
   useEffect(() => {
     if (qNPOs) {
-      qNPOs.map(npo => {
+      qNPOs.map((npo: any) => {
         if (address === npo.addr) {
           setIsNPO(true);
         }

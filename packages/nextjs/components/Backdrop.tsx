@@ -1,6 +1,10 @@
+import React from "react";
 import { motion } from "framer-motion";
 
-const Backdrop = ({ children, onClick, show }) => {
+// interface BackdropProps extends React.HTMLProps<HTMLDivElement> {
+//     show:
+// }
+const Backdrop = ({ children, onClick }: { children: any; onClick: any }) => {
   return (
     <motion.div
       onClick={onClick}
