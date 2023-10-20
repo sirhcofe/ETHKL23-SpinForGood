@@ -52,23 +52,23 @@ export const SepoliaFaucet = () => {
     try {
       setLoading(true);
 
-      const response = await fetch("/api/getFaucet", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          address: address,
-        }),
-      });
+      //   const response = await fetch("/api/getFaucet", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       address: address,
+      //     }),
+      //   });
 
-      if (!response.ok) {
-        throw new Error("You should already received faucet!");
-      }
+      //   if (!response.ok) {
+      //     throw new Error("You should already received faucet!");
+      //   }
 
       await faucetTxn({
         to: address,
-        value: parseEther("0.05"),
+        value: parseEther("0.02"),
         account: faucetAddress,
         chain: sepolia,
       });
@@ -115,9 +115,9 @@ export const SepoliaFaucet = () => {
             </div>
           </div>
 
-          <button className="btn btn-secondary w-full mt-4" onClick={sendETH}>
+          <button className="btn btn-secondary w-full mt-4" disabled={loading} onClick={sendETH}>
             {loading && <span className={loading ? "loading loading-spinner" : ""}></span>}
-            Get 0.05 ETH
+            Get 0.02 ETH
           </button>
         </label>
       </label>

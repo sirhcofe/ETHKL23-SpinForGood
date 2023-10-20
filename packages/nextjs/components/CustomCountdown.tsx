@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import dynamic from "next/dynamic";
 import ButtonMarquee from "./ButtonMarquee";
 // import Roulette from "./Roulette";
@@ -50,7 +50,7 @@ export default function CustomCountdown() {
 
   const { address } = useAccount();
 
-  const { writeAsync } = useScaffoldContractWrite({
+  const { writeAsync, isSuccess } = useScaffoldContractWrite({
     contractName: "SFGContract",
     functionName: "endOfDuration",
   });
@@ -72,14 +72,14 @@ export default function CustomCountdown() {
       {address === "0xD368538Bef5733B04E40a9A96e3af931aD1617d1" && (
         <ButtonMarquee
           onClick={() => {
-            writeAsync();
-            setDate(Date.now() + 3000);
+            writeAsync().then(() => setDate(Date.now() + 3000));
           }}
           text="Now"
         />
       )}
-
-      <AnimatePresence>{show && <DynamicWheel setShow={setShow} />}</AnimatePresence>
+      <Suspense>
+        <AnimatePresence>{show && <DynamicWheel setShow={setShow} />}</AnimatePresence>
+      </Suspense>
     </div>
   );
 }
