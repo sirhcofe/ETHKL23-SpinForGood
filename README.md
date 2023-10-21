@@ -38,6 +38,30 @@
 
 <br/>
 
+## Features
+
+Our Web3 Gamified Donation Platform offers several unique features:
+
+1. Roulette Twist: When a donation is made, 25% of the contribution goes into a prize pool. The lucky donor who gets chosen by the roulette will win the prize, making giving more exciting.
+
+2. Support for NPOs: The remaining 75% of the donation goes into the donation pool. Within this pool, 50% is evenly distributed among all registered NPOs to support their causes. The other 50% goes into a separate roulette for NPOs, where one lucky NPO will receive extra funds.
+
+3. Smart Contract Powered: All fund management and the random selection of lucky winners are handled by a secure and transparent smart contract, ensuring fair and unbiased outcomes.
+
+<br/>
+
+## Technology Stack
+
+1. Ethereum: The core of our platform relies on Ethereum smart contracts to manage donations, prizes, and roulette selections.
+
+2. Scaffold-eth: The scaffold-eth framework provides the foundation for our project, including contract functions, and more. We've extended and customized the platform to incorporate the gamified donation features.
+
+3. Next.js: The frontend of the platform is built using React, offering a responsive and intuitive user interface.
+
+4. Solidity: The smart contracts are written in Solidity to ensure security and transparency.
+
+<br/>
+
 ## Getting started
 
 1. Clone the project repository to your local machine:
@@ -68,28 +92,5 @@ Visit http://localhost:3000 in your web browser to access the application.
 
 <br/>
 
-## Features
-
-Our Web3 Gamified Donation Platform offers several unique features:
-
-1. Roulette Twist: When a donation is made, 25% of the contribution goes into a prize pool. The lucky donor who gets chosen by the roulette will win the prize, making giving more exciting.
-
-2. Support for NPOs: The remaining 75% of the donation goes into the donation pool. Within this pool, 50% is evenly distributed among all registered NPOs to support their causes. The other 50% goes into a separate roulette for NPOs, where one lucky NPO will receive extra funds.
-
-3. Smart Contract Powered: All fund management and the random selection of lucky winners are handled by a secure and transparent smart contract, ensuring fair and unbiased outcomes.
-
-<br/>
-
-## Technology Stack
-
-1. Ethereum: The core of our platform relies on Ethereum smart contracts to manage donations, prizes, and roulette selections.
-
-2. Scaffold-eth: The scaffold-eth framework provides the foundation for our project, including contract functions, and more. We've extended and customized the platform to incorporate the gamified donation features.
-
-3. Next.js: The frontend of the platform is built using React, offering a responsive and intuitive user interface.
-
-4. Solidity: The smart contracts are written in Solidity to ensure security and transparency.
-
-<br/>
-
+## Extras
 You can view more regarding the project here: https://devfolio.co/projects/spin-for-good-213b
