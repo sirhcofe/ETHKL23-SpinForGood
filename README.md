@@ -84,7 +84,7 @@ Our Web3 Gamified Donation Platform offers several unique features:
 
 1. Ethereum: The core of our platform relies on Ethereum smart contracts to manage donations, prizes, and roulette selections.
 
-2. Scaffold-eth: The scaffold-eth framework provides the foundation for our project, including API calls, contract functions, and more. We've extended and customized the platform to incorporate the gamified donation features.
+2. Scaffold-eth: The scaffold-eth framework provides the foundation for our project, including contract functions, and more. We've extended and customized the platform to incorporate the gamified donation features.
 
 3. Next.js: The frontend of the platform is built using React, offering a responsive and intuitive user interface.
 
