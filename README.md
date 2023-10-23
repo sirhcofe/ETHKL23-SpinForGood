@@ -62,6 +62,34 @@ Our Web3 Gamified Donation Platform offers several unique features:
 
 <br/>
 
+## Smart Contract
+
+<div align="center" display="flex" flex-direction="column">
+  <img
+       width="800"
+       src="https://github.com/sirhcofe/ETHKL23-SpinForGood/assets/99158692/9b1260f9-11f1-48f0-8552-4fb2ed5353d6"
+  >
+  <p>1. An example of NPO registration and donation on the smart contract</p>
+</div>
+
+<div align="center" display="flex" flex-direction="column">
+  <img
+       width="800"
+       src="https://github.com/sirhcofe/ETHKL23-SpinForGood/assets/99158692/2c544b12-d415-4530-9a07-99518e18d8a8"
+  >
+  <p>2. The management of outgoing funds after end of duration</p>
+</div>
+
+<div align="center" display="flex" flex-direction="column">
+  <img
+       width="800"
+       src="https://github.com/sirhcofe/ETHKL23-SpinForGood/assets/99158692/fddb4813-1c22-420d-94ce-4153aef8e08b"
+  >
+  <p>3. An example of a wallet address receiving funds from the smart contract</p>
+</div>
+
+<br/>
+
 ## Getting started
 
 1. Clone the project repository to your local machine:
